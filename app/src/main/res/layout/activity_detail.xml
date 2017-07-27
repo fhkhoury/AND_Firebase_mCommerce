@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fiftyfive.and_sampleappvierge.fiftyfive.and_sampleappvierge.Detail">
+    tools:context="fiftyfive.and_firebase_mcommerce.Detail">
 
     <TextView
         android:layout_width="190dp"
