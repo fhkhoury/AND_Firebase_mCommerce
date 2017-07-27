@@ -1,10 +1,12 @@
-package fiftyfive.and_sampleappvierge;
+package fiftyfive.and_firebase_mcommerce;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import fiftyfive.and_firebase_mcommerce.R;
 
 public class Informations extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package fiftyfive.and_sampleappvierge;
+package fiftyfive.and_firebase_mcommerce;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("fiftyfive.and_sampleappvierge", appContext.getPackageName());
+        assertEquals("fiftyfive.and_firebase_mcommerce", appContext.getPackageName());
     }
 }

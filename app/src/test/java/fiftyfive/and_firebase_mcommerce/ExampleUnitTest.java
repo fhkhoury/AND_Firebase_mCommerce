@@ -1,4 +1,4 @@
-package fiftyfive.and_sampleappvierge;
+package fiftyfive.and_firebase_mcommerce;
 
 import org.junit.Test;
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="fiftyfive.and_sampleappvierge">
+    package="fiftyfive.and_firebase_mcommerce">
 
     <application
         android:allowBackup="true"
@@ -8,17 +8,17 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="fiftyfive.and_sampleappvierge.SplashScreen">
+        <activity android:name="fiftyfive.and_firebase_mcommerce.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="fiftyfive.and_sampleappvierge.HomePage" />
-        <activity android:name="fiftyfive.and_sampleappvierge.Informations" />
-        <activity android:name="fiftyfive.and_sampleappvierge.Liste" />
-        <activity android:name="fiftyfive.and_sampleappvierge.Detail"></activity>
+        <activity android:name="fiftyfive.and_firebase_mcommerce.HomePage" />
+        <activity android:name="fiftyfive.and_firebase_mcommerce.Informations" />
+        <activity android:name="fiftyfive.and_firebase_mcommerce.Liste" />
+        <activity android:name="fiftyfive.and_firebase_mcommerce.Detail"></activity>
     </application>
 
 

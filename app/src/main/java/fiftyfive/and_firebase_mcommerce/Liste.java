@@ -1,4 +1,4 @@
-package fiftyfive.and_sampleappvierge;
+package fiftyfive.and_firebase_mcommerce;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,18 +6,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class HomePage extends AppCompatActivity {
+import fiftyfive.and_firebase_mcommerce.R;
+
+public class Liste extends AppCompatActivity {
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_page);
+        setContentView(R.layout.activity_liste);
 
-        Button goToListe = (Button) findViewById(R.id.goToListe);
-        goToListe.setOnClickListener(new View.OnClickListener() {
+        Button goToDetail = (Button) findViewById(R.id.goToDetail);
+        goToDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(HomePage.this, Liste.class);
+                Intent i = new Intent(Liste.this, Detail.class);
                 startActivity(i);
             }
         });
@@ -26,9 +29,10 @@ public class HomePage extends AppCompatActivity {
         infos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(HomePage.this, Informations.class);
+                Intent i = new Intent(Liste.this, Informations.class);
                 startActivity(i);
             }
         });
     }
+
 }
