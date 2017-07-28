@@ -45,21 +45,4 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
-    <Button
-        android:id="@+id/informations"
-        style="@style/Widget.AppCompat.Button.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorAccent"
-        android:text="i"
-        android:textAlignment="center"
-        android:textSize="14sp"
-        android:textStyle="bold|italic"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="447dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="45dp" />
-
 </RelativeLayout>
