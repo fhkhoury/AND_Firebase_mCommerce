@@ -22,6 +22,7 @@
         <activity android:name="fiftyfive.and_firebase_mcommerce.Liste" />
         <activity android:name="fiftyfive.and_firebase_mcommerce.Detail" />
         <activity android:name="fiftyfive.and_firebase_mcommerce.Legal" />
+        <activity android:name="fiftyfive.and_firebase_mcommerce.Promo" />
     </application>
 
 

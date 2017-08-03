@@ -21,8 +21,6 @@ import static fiftyfive.and_firebase_mcommerce.R.id.listView;
 
 public class Liste extends AppCompatActivity {
 
-    ListView mListView;
-
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,13 +30,13 @@ public class Liste extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-        mListView = (ListView) findViewById(listView);
+        ListView consolesListView = (ListView) findViewById(listView);
 
-        List<Product> products = generateProducts();
+        List<Product> consolesList = generateConsolesList();
 
-        ProductAdapter adapter = new ProductAdapter(Liste.this, products);
-        mListView.setAdapter(adapter);
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        ProductAdapter adapter = new ProductAdapter(Liste.this, consolesList);
+        consolesListView.setAdapter(adapter);
+        consolesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> listView, View itemView, int itemPosition, long itemId)
             {
                 Intent i = new Intent(Liste.this, Detail.class);
@@ -76,32 +74,32 @@ public class Liste extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private List<Product> generateProducts(){
-        List<Product> products = new ArrayList<Product>();
-        products.add(new Product(Color.BLUE, "SONY Playstation 4 - 500 Go Slim", "- Plate-forme : PlayStation 4\n" +
+    private List<Product> generateConsolesList(){
+        List<Product> consolesList = new ArrayList<Product>();
+        consolesList.add(new Product(Color.BLUE, "SONY Playstation 4 - 500 Go Slim", "- Plate-forme : PlayStation 4\n" +
                 "- Edition : Slim 500Go\n" +
                 "- Des couleurs riches et éclatantes avec les graphismes HDR d’une qualité exceptionnelle."));
-        products.add(new Product(Color.BLUE, "SONY Playstation 4 Pro", "- Plate-forme: PlayStation 4\n" +
+        consolesList.add(new Product(Color.BLUE, "SONY Playstation 4 Pro", "- Plate-forme: PlayStation 4\n" +
                 "- Edition: Pro\n" +
                 "- La PlayStation la plus puissante jamais conçue."));
-        products.add(new Product(Color.GREEN, "MICROSOFT - Console Xbox One (ancien modèle)", "Inclus avec le produit :\n" +
+        consolesList.add(new Product(Color.GREEN, "MICROSOFT - Console Xbox One (ancien modèle)", "Inclus avec le produit :\n" +
                 "- 1 manette sans fil\n" +
                 "- 1 micro casque filaire\n" +
                 "- 1 bloc d'alimentation"));
-        products.add(new Product(Color.GREEN, "MICROSOFT - Xbox One X", "La XBOX One X sortira le 7 novembre 2017\n" +
+        consolesList.add(new Product(Color.GREEN, "MICROSOFT - Xbox One X", "La XBOX One X sortira le 7 novembre 2017\n" +
                 "- Plongez dans des univers de jeux en qualité 4K et laissez-vous entraîner par des images ultra-réalistes en 2160p\n" +
                 "- Ne ratez pas une image grâce à 326 Go/s de bande passante.\n" +
                 "- 6 téraflops de puissance de traitement graphique, pour des jeux plus performants que jamais."));
-        products.add(new Product(Color.RED, "NINTENDO - Switch avec Joy-Con", "Important : du fait des quantités limitées nous ne pouvons autoriser qu'une précommande par client et par adresse.\n" +
+        consolesList.add(new Product(Color.RED, "NINTENDO - Switch avec Joy-Con", "Important : du fait des quantités limitées nous ne pouvons autoriser qu'une précommande par client et par adresse.\n" +
                 "Contenu :\n" +
                 "- Console Nintendo Switch\n" +
                 "- Manette Joy-Con droite rouge néon et manette Joy-Con gauche bleu néon\n" +
                 "- support Joy-Con"));
-        products.add(new Product(Color.RED, "NINTENDO - Switch avec paire de Joy-Con", "Important : du fait des quantités limitées nous ne pouvons autoriser qu'une précommande par client et par adresse.\n" +
+        consolesList.add(new Product(Color.RED, "NINTENDO - Switch avec paire de Joy-Con", "Important : du fait des quantités limitées nous ne pouvons autoriser qu'une précommande par client et par adresse.\n" +
                 "Contenu :\n" +
                 "- Console Nintendo Switch\n" +
                 "- Manette Joy-Con droite grise et manette Joy-Con gauche grise"));
-        return products;
+        return consolesList;
     }
 
 }

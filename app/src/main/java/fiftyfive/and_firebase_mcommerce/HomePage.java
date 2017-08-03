@@ -10,8 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
-import fiftyfive.and_firebase_mcommerce.R;
 
 public class HomePage extends AppCompatActivity {
 
@@ -23,12 +23,33 @@ public class HomePage extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-        Button goToListe = (Button) findViewById(R.id.goToListe);
-        goToListe.setOnClickListener(new View.OnClickListener() {
+        ImageButton promoBanner = (ImageButton) findViewById(R.id.promoBanner);
+        promoBanner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Goto Promo
+                Intent i = new Intent(HomePage.this, Promo.class);
+                startActivity(i);
+            }
+        });
+
+
+        ImageButton consoles = (ImageButton) findViewById(R.id.consoles);
+        consoles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(HomePage.this, Liste.class);
                 startActivity(i);
+            }
+        });
+
+
+        Button connect = (Button) findViewById(R.id.connect);
+        connect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Intent j = new Intent(HomePage.this, Liste.class);
+                //startActivity(j);
             }
         });
 
