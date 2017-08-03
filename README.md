@@ -20,7 +20,7 @@ A sample m-commerce app to implement the Firebase Stack
 
 ## 1 - Application target architecture
 
-![App target architecture] (https://github.com/fhkhoury/AND_Firebase_mCommerce/blob/master/Firebase%20R%26D%C2%A0-%20mCommerce%20app%20Architecture%20cible.png "App target architecture")
+![App target architecture](https://github.com/fhkhoury/AND_Firebase_mCommerce/blob/master/Firebase%20R%26D%C2%A0-%20mCommerce%20app%20Architecture%20cible.png "App target architecture")
 
 
 
