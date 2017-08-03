@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="fiftyfive.and_firebase_mcommerce">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,8 +20,10 @@
         <activity android:name="fiftyfive.and_firebase_mcommerce.HomePage" />
         <activity android:name="fiftyfive.and_firebase_mcommerce.Informations" />
         <activity android:name="fiftyfive.and_firebase_mcommerce.Liste" />
-        <activity android:name="fiftyfive.and_firebase_mcommerce.Detail"></activity>
+        <activity android:name="fiftyfive.and_firebase_mcommerce.Detail" />
+        <activity android:name="fiftyfive.and_firebase_mcommerce.Legal" />
     </application>
+
 
 
 </manifest>

@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -15,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fiftyfive.and_firebase_mcommerce.R;
+
+import static fiftyfive.and_firebase_mcommerce.R.id.listView;
 
 public class Liste extends AppCompatActivity {
 
@@ -29,21 +32,20 @@ public class Liste extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-        mListView = (ListView) findViewById(R.id.listView);
+        mListView = (ListView) findViewById(listView);
 
         List<Product> products = generateProducts();
 
         ProductAdapter adapter = new ProductAdapter(Liste.this, products);
         mListView.setAdapter(adapter);
-
-        Button goToDetail = (Button) findViewById(R.id.goToDetail);
-        goToDetail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> listView, View itemView, int itemPosition, long itemId)
+            {
                 Intent i = new Intent(Liste.this, Detail.class);
                 startActivity(i);
             }
         });
+
     }
 
 
@@ -66,7 +68,8 @@ public class Liste extends AppCompatActivity {
                 startActivity(i);
                 return true;
             case R.id.action_legal:
-                //Open a webview with CGU
+                Intent j = new Intent(Liste.this, Legal.class);
+                startActivity(j);
                 return true;
         }
 
