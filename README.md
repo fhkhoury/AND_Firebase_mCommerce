@@ -16,6 +16,8 @@ A sample m-commerce app to implement the Firebase Stack
 
 - August 3rd, 2017 - 6:45pm | Add the png file to illustrate the target architecture of the app
 
+- August 3rd, 2017 - 8:15pm | Add promotional banner in the home page of the app and create the promo screen with jewelery products
+
 ------
 
 ## 1 - Application target architecture
