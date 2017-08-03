@@ -14,34 +14,41 @@
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="Homepage"/>
 
-    <TextView
-        android:layout_width="190dp"
-        android:layout_height="48dp"
-        android:text="HomePage"
-        android:textAlignment="center"
-        android:textAppearance="@android:style/TextAppearance.Material.Large"
-        android:textColor="@color/colorPrimary"
-        android:textSize="36sp"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="97dp"
-        tools:layout_editor_absoluteY="38dp"
-        android:layout_alignParentTop="true"
+    <ImageButton
+        android:id="@+id/promoBanner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/promo_banner"
+        android:layout_below="@+id/my_toolbar"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="53dp" />
+
+
+    <ImageButton
+        android:id="@+id/consoles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/consoles"
+        android:layout_below="@+id/promoBanner"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp" />
+        android:layout_marginTop="81dp" />
+
 
     <Button
-        android:id="@+id/goToListe"
+        android:id="@+id/connect"
         android:layout_width="164dp"
         android:layout_height="72dp"
-        android:text="GoTo Liste"
+        android:layout_marginBottom="41dp"
+        android:background="@android:color/holo_purple"
+        android:text="Signin"
         android:textAlignment="center"
         android:textSize="18sp"
         android:textStyle="italic"
         tools:layout_editor_absoluteX="110dp"
         tools:layout_editor_absoluteY="219dp"
-        android:layout_marginBottom="129dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
