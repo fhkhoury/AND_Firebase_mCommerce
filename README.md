@@ -14,8 +14,14 @@ A sample m-commerce app to implement the Firebase Stack
 
 - August 3rd, 2017 - 3:00pm | Add the "Legal" screen which embeds a webview
 
+- August 3rd, 2017 - 6:45pm | Add the png file to illustrate the target architecture of the app
+
 ------
 
-## 1 - Application Structure
+## 1 - Application target architecture
+
+![App target architecture] (https://github.com/fhkhoury/AND_Firebase_mCommerce/blob/master/Firebase%20R%26D%C2%A0-%20mCommerce%20app%20Architecture%20cible.png "App target architecture")
+
+
 
 
