@@ -31,7 +31,7 @@ public class Promo extends AppCompatActivity{
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-        ListView bijouxPromoListView = (ListView) findViewById(listView);
+        final ListView bijouxPromoListView = (ListView) findViewById(listView);
 
         List<Product> bijouxPromoList = generateBijouxPromoList();
 
@@ -40,7 +40,11 @@ public class Promo extends AppCompatActivity{
         bijouxPromoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> listView, View itemView, int itemPosition, long itemId)
             {
+                Product selectedProduct = (Product) bijouxPromoListView.getItemAtPosition(itemPosition);
                 Intent i = new Intent(Promo.this, Detail.class);
+                i.putExtra("SELECTED_PRODUCT_COLOR", selectedProduct.getColor());
+                i.putExtra("SELECTED_PRODUCT_NAME", selectedProduct.getName());
+                i.putExtra("SELECTED_PRODUCT_DESC", selectedProduct.getDesc());
                 startActivity(i);
             }
         });

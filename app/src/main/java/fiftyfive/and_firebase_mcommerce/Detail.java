@@ -2,16 +2,22 @@ package fiftyfive.and_firebase_mcommerce;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import fiftyfive.and_firebase_mcommerce.R;
+
+import static fiftyfive.and_firebase_mcommerce.R.id.productImage;
 
 public class Detail extends AppCompatActivity {
 
@@ -27,6 +33,19 @@ public class Detail extends AppCompatActivity {
 
         Context context = getApplicationContext();
 
+        //Get value information about selected product in the list
+        int productColor = getIntent().getIntExtra("SELECTED_PRODUCT_COLOR", Color.TRANSPARENT);
+        String productName = getIntent().getStringExtra("SELECTED_PRODUCT_NAME");
+        String productDesc = getIntent().getStringExtra("SELECTED_PRODUCT_DESC");
+
+        ImageView ImageOfProduct = (ImageView) findViewById(productImage);
+        ImageOfProduct.setBackgroundColor(productColor);
+
+        TextView NameOfProduct= (TextView) findViewById(R.id.productName);
+        NameOfProduct.setText(productName);
+
+        TextView DescriptionOfProduct= (TextView) findViewById(R.id.productDescription);
+        DescriptionOfProduct.setText(productDesc);
 
 
         //Définition du toast

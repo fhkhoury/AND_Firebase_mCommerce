@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,16 +31,20 @@ public class Liste extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-        ListView consolesListView = (ListView) findViewById(listView);
+        final ListView consolesListView = (ListView) findViewById(listView);
 
-        List<Product> consolesList = generateConsolesList();
+        final List<Product> consolesList = generateConsolesList();
 
         ProductAdapter adapter = new ProductAdapter(Liste.this, consolesList);
         consolesListView.setAdapter(adapter);
         consolesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> listView, View itemView, int itemPosition, long itemId)
             {
+                Product selectedProduct = (Product) consolesListView.getItemAtPosition(itemPosition);
                 Intent i = new Intent(Liste.this, Detail.class);
+                i.putExtra("SELECTED_PRODUCT_COLOR", selectedProduct.getColor());
+                i.putExtra("SELECTED_PRODUCT_NAME", selectedProduct.getName());
+                i.putExtra("SELECTED_PRODUCT_DESC", selectedProduct.getDesc());
                 startActivity(i);
             }
         });
