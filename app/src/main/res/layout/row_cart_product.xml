@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp" >
+
+    <ImageView
+        android:id="@+id/productImage"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        tools:background="#AAA" />
+
+    <TextView
+        android:id="@+id/productName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/productImage"
+        android:layout_alignTop="@+id/productImage"
+        android:textStyle="bold"
+        tools:text="Product Name" />
+
+    <TextView
+        android:id="@+id/labelQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        tools:text="Quantity: "
+        android:layout_alignBottom="@+id/productImage"
+        android:layout_alignStart="@+id/productName" />
+
+
+    <TextView
+        android:id="@+id/productQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        tools:text="XX"
+        android:layout_alignBaseline="@+id/labelQuantity"
+        android:layout_alignBottom="@+id/labelQuantity"
+        android:layout_toEndOf="@+id/labelQuantity" />
+
+    <TextView
+        android:id="@+id/productPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        tools:text="XXX,YY"
+        android:layout_alignBaseline="@+id/labelCurrency"
+        android:layout_alignBottom="@+id/labelCurrency"
+        android:layout_toStartOf="@+id/labelCurrency" />
+
+    <TextView
+        android:id="@+id/labelCurrency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        tools:text=" €"
+        android:layout_alignBaseline="@+id/productQuantity"
+        android:layout_alignBottom="@+id/productQuantity"
+        android:layout_alignParentEnd="true" />
+
+
+</RelativeLayout>
+
+

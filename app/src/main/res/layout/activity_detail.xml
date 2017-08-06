@@ -62,7 +62,7 @@
         android:layout_marginEnd="14dp"
         android:text="Add to Cart"
         android:textAlignment="center"
-        android:textSize="18sp"
+        android:textSize="18dp"
         android:textStyle="italic"
         tools:layout_editor_absoluteX="110dp"
         tools:layout_editor_absoluteY="219dp" />

@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name="fiftyfive.and_firebase_mcommerce.SplashScreen">
+        <activity android:icon="@drawable/logo_55" android:name="fiftyfive.and_firebase_mcommerce.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,6 +23,7 @@
         <activity android:name="fiftyfive.and_firebase_mcommerce.Detail" />
         <activity android:name="fiftyfive.and_firebase_mcommerce.Legal" />
         <activity android:name="fiftyfive.and_firebase_mcommerce.Promo" />
+        <activity android:name="fiftyfive.and_firebase_mcommerce.Cart" />
     </application>
 
 

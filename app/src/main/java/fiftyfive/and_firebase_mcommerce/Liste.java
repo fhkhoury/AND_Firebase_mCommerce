@@ -64,15 +64,16 @@ public class Liste extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_cart:
-                //Goto action cart
-                return true;
-            case R.id.action_informations:
-                Intent i = new Intent(Liste.this, Informations.class);
+                Intent i = new Intent(Liste.this, Cart.class);
                 startActivity(i);
                 return true;
-            case R.id.action_legal:
-                Intent j = new Intent(Liste.this, Legal.class);
+            case R.id.action_informations:
+                Intent j = new Intent(Liste.this, Informations.class);
                 startActivity(j);
+                return true;
+            case R.id.action_legal:
+                Intent k = new Intent(Liste.this, Legal.class);
+                startActivity(k);
                 return true;
         }
 

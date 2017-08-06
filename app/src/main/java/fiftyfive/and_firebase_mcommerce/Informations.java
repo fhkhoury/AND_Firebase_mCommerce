@@ -26,7 +26,7 @@ public class Informations extends AppCompatActivity {
         crash.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // PUT HERE THE FIREBASE CRASH CODE
+                //TODO: PUT HERE THE FIREBASE CRASH CODE
             }
         });
 
@@ -51,13 +51,14 @@ public class Informations extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_cart:
-                //Goto action cart
+                Intent i = new Intent(Informations.this, Cart.class);
+                startActivity(i);
                 return true;
             case R.id.action_legal:
-                //Open a webview with CGU
+                Intent j = new Intent(Informations.this, Legal.class);
+                startActivity(j);
                 return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }
