@@ -61,6 +61,7 @@ public class Detail extends AppCompatActivity {
         call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //TODO: Mettre ici le code d'ajout du produit à Firebase RTDB
                 toast.show();
             }
         });
@@ -80,15 +81,16 @@ public class Detail extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_cart:
-                //Goto action cart
-                return true;
-            case R.id.action_informations:
-                Intent i = new Intent(Detail.this, Informations.class);
+                Intent i = new Intent(Detail.this, Cart.class);
                 startActivity(i);
                 return true;
-            case R.id.action_legal:
-                Intent j = new Intent(Detail.this, Legal.class);
+            case R.id.action_informations:
+                Intent j = new Intent(Detail.this, Informations.class);
                 startActivity(j);
+                return true;
+            case R.id.action_legal:
+                Intent k = new Intent(Detail.this, Legal.class);
+                startActivity(k);
                 return true;
         }
 
