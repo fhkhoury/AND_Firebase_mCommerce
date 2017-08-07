@@ -6,11 +6,16 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+
+import com.firebase.ui.auth.AuthUI;
+
+import static android.R.attr.id;
 
 
 public class HomePage extends AppCompatActivity {
@@ -48,6 +53,23 @@ public class HomePage extends AppCompatActivity {
         connect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Authenticate authenticate = new Authenticate();
+                boolean authenticationStatus = authenticate.checkAuthenticationStatus();
+                if (authenticationStatus){
+                    Log.i("INFO CONNEXION", "Connexion OK");
+
+                }
+                else{
+                    Log.i("INFO CONNEXION", "Connexion KO");
+                    // Lance le process d'authentification
+                    startActivityForResult(
+                            // Get an instance of AuthUI based on the default app
+                            AuthUI.getInstance().createSignInIntentBuilder().build(),
+                            123);
+                    //Redirection to Profile
+                    startActivity(new Intent (HomePage.this, Profile.class));
+                    finish();
+                }
                 //Intent j = new Intent(HomePage.this, Liste.class);
                 //startActivity(j);
             }
