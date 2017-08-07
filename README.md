@@ -4,6 +4,11 @@ A sample m-commerce app to implement the Firebase Stack
 
 ## 0 - Project History
 
+- August 7th, 2017 - 3:00pm | Install Firebase SDK
+     - Import "google-services.json" configuration file in the project 	
+     - Add google play services dependencies to root gradle 	
+     - Add Firebase core dependencies to the app gradle
+
 - August 7th, 2017 -  10:45am | Firebase project creation
      - Create the "55 Firebase m-Commerce" project on Firebase console (project id: 
 project-5176900217331074858)
