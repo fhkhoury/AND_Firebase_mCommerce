@@ -4,6 +4,12 @@ A sample m-commerce app to implement the Firebase Stack
 
 ## 0 - Project History
 
+- August 7th, 2017 -  10:45am | Firebase project creation
+     - Create the "55 Firebase m-Commerce" project on Firebase console (project id: 
+project-5176900217331074858)
+     - Declare the "55 Firebase m-Commerce" android app in the project (app id: 1:596167132252:android:45a45979843f1dbf
+and package name: fiftyfive.and_firebase_mcommerce)
+
 - August 6th, 2017 - 8:15am | Add the "Cart" screen 
      - Create and design  the "Cart" screen with its listview adapter and menu
      - Update "Informations" screen to set the menu
