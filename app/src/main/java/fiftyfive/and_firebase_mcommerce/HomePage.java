@@ -57,7 +57,8 @@ public class HomePage extends AppCompatActivity {
                 boolean authenticationStatus = authenticate.checkAuthenticationStatus();
                 if (authenticationStatus){
                     Log.i("INFO CONNEXION", "Connexion OK");
-
+                    Intent i = new Intent(HomePage.this, Profile.class);
+                    startActivity(i);
                 }
                 else{
                     Log.i("INFO CONNEXION", "Connexion KO");
@@ -68,7 +69,6 @@ public class HomePage extends AppCompatActivity {
                             123);
                     //Redirection to Profile
                     startActivity(new Intent (HomePage.this, Profile.class));
-                    finish();
                 }
                 //Intent j = new Intent(HomePage.this, Liste.class);
                 //startActivity(j);
