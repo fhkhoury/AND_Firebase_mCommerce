@@ -14,16 +14,28 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.firebase.ui.auth.AuthUI;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import static android.R.attr.id;
+import static fiftyfive.and_firebase_mcommerce.R.id.promoBanner;
 
 
 public class HomePage extends AppCompatActivity {
+
+    private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
+    // Choose an arbitrary request code value
+    //private static final int RC_SIGN_IN = 123;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+
+        // Initialize Firebase Auth
+        //mAuth = FirebaseAuth.getInstance();
+        //mUser = mAuth.getCurrentUser();
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -49,30 +61,13 @@ public class HomePage extends AppCompatActivity {
         });
 
 
-        Button connect = (Button) findViewById(R.id.connect);
+        final Button connect = (Button) findViewById(R.id.connect);
+        //Authenticate authenticate = new Authenticate();
+        //final boolean authenticationStatus = authenticate.checkAuthenticationStatus();
         connect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Authenticate authenticate = new Authenticate();
-                boolean authenticationStatus = authenticate.checkAuthenticationStatus();
-                if (authenticationStatus){
-                    Log.i("INFO CONNEXION", "Connexion OK");
-                    Intent i = new Intent(HomePage.this, Profile.class);
-                    startActivity(i);
                 }
-                else{
-                    Log.i("INFO CONNEXION", "Connexion KO");
-                    // Lance le process d'authentification
-                    startActivityForResult(
-                            // Get an instance of AuthUI based on the default app
-                            AuthUI.getInstance().createSignInIntentBuilder().build(),
-                            123);
-                    //Redirection to Profile
-                    startActivity(new Intent (HomePage.this, Profile.class));
-                }
-                //Intent j = new Intent(HomePage.this, Liste.class);
-                //startActivity(j);
-            }
         });
 
     }
