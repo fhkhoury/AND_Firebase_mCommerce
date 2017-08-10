@@ -26,6 +26,8 @@
         <activity android:name="fiftyfive.and_firebase_mcommerce.Cart" />
         <activity android:name="fiftyfive.and_firebase_mcommerce.Profile" />
         <activity android:name="fiftyfive.and_firebase_mcommerce.Login" />
+        <activity android:name="fiftyfive.and_firebase_mcommerce.Signup" />
+        <activity android:name="fiftyfive.and_firebase_mcommerce.ResetPassword" />
     </application>
 
 
