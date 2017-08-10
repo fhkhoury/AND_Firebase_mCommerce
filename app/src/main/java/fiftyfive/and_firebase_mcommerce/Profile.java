@@ -10,26 +10,23 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.List;
-
-import static fiftyfive.and_firebase_mcommerce.R.id.userEmail;
 
 /**
  * Created by Francois on 07/08/2017.
  */
 
 public class Profile extends AppCompatActivity {
+
+    private FirebaseAuth.AuthStateListener authListener;
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -39,12 +36,15 @@ public class Profile extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
+        //get firebase auth instance
+        auth = FirebaseAuth.getInstance();
+        //get current user
+        final FirebaseUser user = auth.getCurrentUser();
+
         //ImageView userPic = (ImageView) findViewById(R.id.userPicture);
         TextView userName = (TextView) findViewById(R.id.userName);
         TextView userEmail = (TextView) findViewById(R.id.userEmail);
 
-        //User
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             // User is signed in
             String name = user.getDisplayName();
@@ -73,17 +73,10 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Déconnecter l'utilisateur et revenir à la HP après
-                if (view.getId() == R.id.disconnect)
-                {
-                    AuthUI.getInstance()
-                            .signOut(Profile.this)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    // user is now signed out
-                                    startActivity(new Intent(Profile.this, HomePage.class));
-                                    finish();
-                                }
-                            });
+                if (view.getId() == R.id.disconnect) {
+                    auth.signOut();
+                    startActivity(new Intent(Profile.this, HomePage.class));
+                    finish();
                 }
             }
         });

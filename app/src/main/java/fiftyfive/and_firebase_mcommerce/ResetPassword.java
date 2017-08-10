@@ -1,6 +1,5 @@
 package fiftyfive.and_firebase_mcommerce;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
