@@ -4,6 +4,9 @@ A sample m-commerce app to implement the Firebase Stack
 
 ## 0 - Project History
 
+- August 10th, 2017 - 12:00pm | Update architectures scheme
+     - Update scheme with "login", "signup" and "resetpassword" screens
+
 - August 10th, 2017 - 11:30am | Implement authentication system
      - Add "firebase-auth" and "fuitebase-ui-auth" dependencies to the app gradle
      - Create "login", "signup" and "resetpassword" screens
