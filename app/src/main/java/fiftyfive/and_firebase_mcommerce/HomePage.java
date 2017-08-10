@@ -24,8 +24,9 @@ import static fiftyfive.and_firebase_mcommerce.R.id.promoBanner;
 
 public class HomePage extends AppCompatActivity {
 
-    private FirebaseAuth.AuthStateListener authListener;
+    //private FirebaseAuth.AuthStateListener authListener;
     private FirebaseAuth auth;
+
     // Choose an arbitrary request code value
     //private static final int RC_SIGN_IN = 123;
 
@@ -39,9 +40,10 @@ public class HomePage extends AppCompatActivity {
 
         //get firebase auth instance
         auth = FirebaseAuth.getInstance();
-
         //get current user
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        final FirebaseUser user = auth.getCurrentUser();
+
+
 
         ImageButton promoBanner = (ImageButton) findViewById(R.id.promoBanner);
         promoBanner.setOnClickListener(new View.OnClickListener() {
@@ -68,26 +70,24 @@ public class HomePage extends AppCompatActivity {
         connect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                authListener = new FirebaseAuth.AuthStateListener() {
-                    @Override
-                    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                        FirebaseUser user = firebaseAuth.getCurrentUser();
-                        if (user == null) {
-                            // user auth state is changed - user is null
-                            // launch login activity
-                            startActivity(new Intent(HomePage.this, Login.class));
-                            finish();
-                        }
-                        else {
-                            // user is already logged
-                            // launch profile activity
-                            startActivity(new Intent(HomePage.this, Profile.class));
-                            finish();
-                        }
-                    }
-                };
+                Log.i("TAG;", "Bouton clickqué");
+                if (user == null) {
+                    // user auth state is changed - user is null
+                    // launch login activity
+                    Log.i("TAG:", "User non connecté");
+                    startActivity(new Intent(HomePage.this, Login.class));
+                    finish();
+                }
+                else {
+                    // user is already logged
+                    // launch profile activity
+                    Log.i("TAG:", "User connecté");
+                    startActivity(new Intent(HomePage.this, Profile.class));
+                    finish();
+                }
             }
         });
+
 
     }
 
