@@ -1,19 +1,26 @@
 package fiftyfive.and_firebase_mcommerce;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+
 
 public class HomePage extends AppCompatActivity {
+
+    //private FirebaseAuth.AuthStateListener authListener;
+    private FirebaseAuth auth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +29,13 @@ public class HomePage extends AppCompatActivity {
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+
+        //get firebase auth instance
+        auth = FirebaseAuth.getInstance();
+        //get current user
+        final FirebaseUser user = auth.getCurrentUser();
+
+
 
         ImageButton promoBanner = (ImageButton) findViewById(R.id.promoBanner);
         promoBanner.setOnClickListener(new View.OnClickListener() {
@@ -44,14 +58,28 @@ public class HomePage extends AppCompatActivity {
         });
 
 
-        Button connect = (Button) findViewById(R.id.connect);
+        final Button connect = (Button) findViewById(R.id.connect);
         connect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent j = new Intent(HomePage.this, Liste.class);
-                //startActivity(j);
+                Log.i("TAG;", "Bouton clickqué");
+                if (user == null) {
+                    // user auth state is changed - user is null
+                    // launch login activity
+                    Log.i("TAG:", "User non connecté");
+                    startActivity(new Intent(HomePage.this, Login.class));
+                    finish();
+                }
+                else {
+                    // user is already logged
+                    // launch profile activity
+                    Log.i("TAG:", "User connecté");
+                    startActivity(new Intent(HomePage.this, Profile.class));
+                    finish();
+                }
             }
         });
+
 
     }
 
