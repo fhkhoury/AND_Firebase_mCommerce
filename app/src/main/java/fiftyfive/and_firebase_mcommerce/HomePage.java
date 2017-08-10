@@ -2,6 +2,7 @@ package fiftyfive.and_firebase_mcommerce;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,8 +24,8 @@ import static fiftyfive.and_firebase_mcommerce.R.id.promoBanner;
 
 public class HomePage extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
-    private FirebaseUser mUser;
+    private FirebaseAuth.AuthStateListener authListener;
+    private FirebaseAuth auth;
     // Choose an arbitrary request code value
     //private static final int RC_SIGN_IN = 123;
 
@@ -33,12 +34,14 @@ public class HomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-        // Initialize Firebase Auth
-        //mAuth = FirebaseAuth.getInstance();
-        //mUser = mAuth.getCurrentUser();
-
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+
+        //get firebase auth instance
+        auth = FirebaseAuth.getInstance();
+
+        //get current user
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         ImageButton promoBanner = (ImageButton) findViewById(R.id.promoBanner);
         promoBanner.setOnClickListener(new View.OnClickListener() {
@@ -62,12 +65,28 @@ public class HomePage extends AppCompatActivity {
 
 
         final Button connect = (Button) findViewById(R.id.connect);
-        //Authenticate authenticate = new Authenticate();
-        //final boolean authenticationStatus = authenticate.checkAuthenticationStatus();
         connect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                }
+                authListener = new FirebaseAuth.AuthStateListener() {
+                    @Override
+                    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                        FirebaseUser user = firebaseAuth.getCurrentUser();
+                        if (user == null) {
+                            // user auth state is changed - user is null
+                            // launch login activity
+                            startActivity(new Intent(HomePage.this, Login.class));
+                            finish();
+                        }
+                        else {
+                            // user is already logged
+                            // launch profile activity
+                            startActivity(new Intent(HomePage.this, Profile.class));
+                            finish();
+                        }
+                    }
+                };
+            }
         });
 
     }

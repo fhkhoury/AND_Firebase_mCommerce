@@ -25,6 +25,7 @@
         <activity android:name="fiftyfive.and_firebase_mcommerce.Promo" />
         <activity android:name="fiftyfive.and_firebase_mcommerce.Cart" />
         <activity android:name="fiftyfive.and_firebase_mcommerce.Profile" />
+        <activity android:name="fiftyfive.and_firebase_mcommerce.Login" />
     </application>
 
 
