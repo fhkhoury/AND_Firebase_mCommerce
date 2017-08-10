@@ -4,6 +4,12 @@ A sample m-commerce app to implement the Firebase Stack
 
 ## 0 - Project History
 
+- August 10th, 2017 - 4:00pm | Design database
+     - Design the database
+     - Transcript the database as "Firebase_mCommerce_originDatabase.json" file 
+     - Fill the database
+     - Import the json file to Firebase Real Time Database console
+     
 - August 10th, 2017 - 12:00pm | Update architectures scheme
      - Update scheme with "login", "signup" and "resetpassword" screens
 
