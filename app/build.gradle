@@ -31,6 +31,8 @@ dependencies {
     compile 'com.firebaseui:firebase-ui-auth:2.2.0'
     //Firebase A
     compile 'com.google.firebase:firebase-auth:11.0.4'
+    //Firebase crash reporting library
+    compile 'com.google.firebase:firebase-crash:11.0.4'
 
     testCompile 'junit:junit:4.12'
 }

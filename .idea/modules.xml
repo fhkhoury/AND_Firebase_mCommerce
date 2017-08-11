@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AND_Firebase_mCommerce.iml" filepath="$PROJECT_DIR$/AND_Firebase_mCommerce.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/firebasefkh.iml" filepath="$PROJECT_DIR$/firebasefkh.iml" />
     </modules>
   </component>
 </project>
