@@ -4,6 +4,9 @@ A sample m-commerce app to implement the Firebase Stack
 
 ## 0 - Project History
 
+- August 23rd, 2017 - 6:00pm | Design database
+     - Add the database model scheme on Github repo
+
 - August 10th, 2017 - 4:00pm | Design database
      - Design the database
      - Transcript the database as "Firebase_mCommerce_originDatabase.json" file 
@@ -57,7 +60,7 @@ and package name: fiftyfive.and_firebase_mcommerce)
 
 ## 2 - Application database model
 
-![App database model] (https://github.com/fhkhoury/AND_Firebase_mCommerce/blob/master/55%20Firebase%20m-Commerce%20%7C%C2%A0Database%20Model.png "App database model)
+![App database model] (https://github.com/fhkhoury/AND_Firebase_mCommerce/blob/master/55%20Firebase%20m-Commerce%20%7C%C2%A0Database%20Model.png "App database model")
 
 
 
