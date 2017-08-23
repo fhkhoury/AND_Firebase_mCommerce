@@ -56,11 +56,8 @@ and package name: fiftyfive.and_firebase_mcommerce)
 ## 1 - Application target architecture
 
 ![App target architecture](https://github.com/fhkhoury/AND_Firebase_mCommerce/blob/master/Firebase%20R%26D%C2%A0-%20mCommerce%20app%20Architecture%20cible.png "App target architecture")
-
+------
 
 ## 2 - Application database model
 
-![App database model] (https://github.com/fhkhoury/AND_Firebase_mCommerce/blob/master/55%20Firebase%20m-Commerce%20%7C%C2%A0Database%20Model.png "App database model")
-
-
-
+![App database model](https://github.com/fhkhoury/AND_Firebase_mCommerce/blob/master/55%20Firebase%20m-Commerce%20%7C%C2%A0Database%20Model.png "App database model")
