@@ -9,11 +9,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import com.google.firebase.crash.FirebaseCrash;
 
 import fiftyfive.and_firebase_mcommerce.R;
 
 public class Informations extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,12 +21,12 @@ public class Informations extends AppCompatActivity {
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-
         Button crash = (Button) findViewById(R.id.crash);
         crash.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: PUT HERE THE FIREBASE CRASH CODE
+                        throw new  RuntimeException("Crash Activity ");
+
             }
         });
 
