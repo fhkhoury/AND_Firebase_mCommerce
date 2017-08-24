@@ -4,6 +4,11 @@ A sample m-commerce app to implement the Firebase Stack
 
 ## 0 - Project History
 
+- August 24th, 2017 - 1:00 pm | Crash reporting (merge the 'crashreport' branch to 'master')
+     - Setup the Firebase Crash Report SDK
+     - Set a fatal error crash behind te "crash" button in the "Informations" class
+     - Test and good tracking on the project crash dashboard
+
 - August 23rd, 2017 - 6:00pm | Design database
      - Add the database model scheme on Github repo
 
