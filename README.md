@@ -4,6 +4,8 @@ A sample m-commerce app to implement the Firebase Stack
 
 ## 0 - Project History
 
+- August 25th - 5:30pm | Add anomyous auth during the splashscreen to get default database content 
+
 - August 24th, 2017 - 1:00 pm | Crash reporting (merge the 'crashreport' branch to 'master')
      - Setup the Firebase Crash Report SDK
      - Set a fatal error crash behind te "crash" button in the "Informations" class
