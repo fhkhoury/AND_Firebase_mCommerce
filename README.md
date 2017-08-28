@@ -4,6 +4,9 @@ A sample m-commerce app to implement the Firebase Stack
 
 ## 0 - Project History
 
+- August 28th, 4:30pm | Test database
+     - Database test is ok. Get the mail of user 'f.khouryat@gmail.com
+
 - August 25th - 5:30pm | Add anomyous auth during the splashscreen to get default database content 
 
 - August 24th, 2017 - 1:00 pm | Crash reporting (merge the 'crashreport' branch to 'master')
