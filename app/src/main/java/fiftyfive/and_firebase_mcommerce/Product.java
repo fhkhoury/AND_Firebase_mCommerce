@@ -28,6 +28,7 @@ public class Product {
     String getDesc(){
         return desc;
     }
+
     //...setters
 
 }
