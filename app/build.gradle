@@ -34,6 +34,8 @@ dependencies {
     compile 'com.google.firebase:firebase-auth:11.0.4'
     //Firebase crash reporting library
     compile 'com.google.firebase:firebase-crash:11.0.4'
+    //Firebase database
+    compile 'com.google.firebase:firebase-database:11.0.4'
 
     testCompile 'junit:junit:4.12'
 }
