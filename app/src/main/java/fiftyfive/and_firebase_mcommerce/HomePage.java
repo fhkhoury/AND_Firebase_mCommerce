@@ -65,15 +65,24 @@ public class HomePage extends AppCompatActivity {
                     // user auth state is changed - user is null
                     // launch login activity
                     Log.i("TAG:", "User non connecté");
-                    startActivity(new Intent(HomePage.this, Login.class));
-                    finish();
+                    //startActivity(new Intent(HomePage.this, Login.class));
+                    //finish();
                 }
                 else {
-                    // user is already logged
+                    if (user.isAnonymous()){
+                        // user is anonymous
+                        Log.i("TAG:", "User Aonymous");
+                        Log.i("UID: ", user.getUid());
+                        //startActivity(new Intent(HomePage.this, Login.class));
+                        //finish();
+                    }
                     // launch profile activity
+                    else {
                     Log.i("TAG:", "User connecté");
-                    startActivity(new Intent(HomePage.this, Profile.class));
-                    finish();
+                        Log.i("UID: ", user.getUid());
+                        //startActivity(new Intent(HomePage.this, Profile.class));
+                    //finish();
+                    }
                 }
             }
         });

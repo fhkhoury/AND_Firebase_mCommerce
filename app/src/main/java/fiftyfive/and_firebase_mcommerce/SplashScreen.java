@@ -1,6 +1,7 @@
 package fiftyfive.and_firebase_mcommerce;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -33,47 +34,58 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
 
         mAuth = FirebaseAuth.getInstance();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        final FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        final String PREFS_NAME = "MyPrefsFile";
+        final SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+
+        if (settings.getBoolean("my_first_time", true)) {
+            //the app is being launched for first time, do something
+            Log.i("Comments", "First time");
+            // first time task
+            mAuth.signInAnonymously()
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.i("SignIn", "signInAnonymously:success");
+                                //FirebaseUser user = mAuth.getCurrentUser();
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.i("SignIn", "signInAnonymously:failure", task.getException());
+                            }
+                        }
+                    });
+            // record the fact that the app has been started at least once
+            settings.edit().putBoolean("my_first_time", false).commit();
+        }
+        else{
+            Log.i("Comments", "Not the First time");
+        }
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        database.setPersistenceEnabled(true);//Enable database persisitance
+        //Retrieve and Keep synced categories and products
+        DatabaseReference categoriesRef = database.getReference("categories");
+        categoriesRef.keepSynced(true);
+        DatabaseReference productsRef = database.getReference("products");
+        productsRef.keepSynced(true);
+        //TODO: Test de la BDD
+        categoriesRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.i("database", dataSnapshot.child("Jewelry").toString());
+                Log.i("info", "Database is OK");
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.i("info", "Database is KO");
+            }
+        });
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                //Anonymous Authentication by default to get database informations
-                mAuth.signInAnonymously()
-                        .addOnCompleteListener(SplashScreen.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    Log.i("TAG OK", "signInAnonymously:success");
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                                    database.setPersistenceEnabled(true);//Enable database persisitance
-                                    //Retrieve and Keep synced categories and products
-                                    DatabaseReference categoriesRef = database.getReference("categories");
-                                    categoriesRef.keepSynced(true);
-                                    DatabaseReference productsRef = database.getReference("products");
-                                    productsRef.keepSynced(true);
-                                    //TODO: Test de la BDD
-                                    DatabaseReference userendPoint = database.getReference("users");
-                                    userendPoint.addValueEventListener(new ValueEventListener() {
-                                                                           @Override
-                                                                           public void onDataChange(DataSnapshot dataSnapshot) {
-                                                                               Log.i("database", dataSnapshot.child("D9ZD4Z8BUkcsHQucH0Iwv18L1zo2").child("mail").toString());
-                                                                           }
-                                                                           @Override
-                                                                           public void onCancelled(DatabaseError databaseError) {
-
-                                                                           }
-                                                                       });
-                                    Log.i("info", "it's ok");
-                                } else {
-                                   Log.i("TAG KO", "signInAnonymously:failure", task.getException());
-                                    //Toast.makeText(AnonymousAuthActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
-
-                                }
-                            }
-                        });
                 Intent i = new Intent(SplashScreen.this, HomePage.class);
                 startActivity(i);
                 finish();

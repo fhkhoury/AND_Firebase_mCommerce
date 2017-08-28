@@ -35,13 +35,6 @@ public class Login extends AppCompatActivity {
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
 
-        if (auth.getCurrentUser() != null) {
-            // user is already conected
-            // Go to profile
-            startActivity(new Intent(Login.this, Profile.class));
-            finish();
-        }
-
         // set the view now
         setContentView(R.layout.activity_login);
 
