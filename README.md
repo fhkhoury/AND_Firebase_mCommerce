@@ -4,6 +4,10 @@ A sample m-commerce app to implement the Firebase Stack
 
 ## 0 - Project History
 
+- August 29th, 11:30am | Add connectivity check at start
+     - If connection is available, check if it's the first run to launch Anonymous auth. 
+     - If not, display HP directly
+
 - August 29th, 1:00am | Change remote database rules & Update AnonymousAuth
      - Change database rules to get categories and products if user is authenticated or not
      - Change databese rules to get users nodes only readable and writeable by authenticated users themselves only
