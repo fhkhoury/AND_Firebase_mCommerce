@@ -14,6 +14,8 @@ import android.widget.ImageButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import static fiftyfive.and_firebase_mcommerce.R.id.promoBanner;
+
 public class HomePage extends AppCompatActivity {
 
     //private FirebaseAuth.AuthStateListener authListener;
@@ -30,8 +32,9 @@ public class HomePage extends AppCompatActivity {
 
         //get firebase auth instance
         auth = FirebaseAuth.getInstance();
-        //get current user
         final FirebaseUser user = auth.getCurrentUser();
+
+        final Intent j;
 
 
 
@@ -42,6 +45,7 @@ public class HomePage extends AppCompatActivity {
                 //Goto Promo
                 Intent i = new Intent(HomePage.this, Promo.class);
                 startActivity(i);
+                finish();
             }
         });
 
@@ -52,41 +56,49 @@ public class HomePage extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(HomePage.this, Liste.class);
                 startActivity(i);
+                finish();
             }
         });
 
 
         final Button connect = (Button) findViewById(R.id.connect);
+        if(user == null){
+            Log.i("TAG:", "User non connecté");
+            connect.setText("Login");
+        }
+        else{
+            if(user.isAnonymous()){
+                Log.i("TAG:", "User Aonymous");
+                Log.i("UID: ", user.getUid());
+                connect.setText("Signup");
+            }
+            else{
+                Log.i("TAG:", "User Connecté");
+                Log.i("UID: ", user.getUid());
+                connect.setText("Profile");
+            }
+        }
+
         connect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.i("TAG;", "Bouton clickqué");
-                if (user == null) {
-                    // user auth state is changed - user is null
-                    // launch login activity
-                    Log.i("TAG:", "User non connecté");
-                    //startActivity(new Intent(HomePage.this, Login.class));
-                    //finish();
+                if(user==null){
+                    startActivity(new Intent(HomePage.this, Login.class));
+                    finish();
                 }
-                else {
-                    if (user.isAnonymous()){
-                        // user is anonymous
-                        Log.i("TAG:", "User Aonymous");
-                        Log.i("UID: ", user.getUid());
-                        //startActivity(new Intent(HomePage.this, Login.class));
-                        //finish();
+                else{
+                    if(user.isAnonymous()){
+                        startActivity(new Intent(HomePage.this, Signup.class));
+                        finish();
                     }
-                    // launch profile activity
-                    else {
-                    Log.i("TAG:", "User connecté");
-                        Log.i("UID: ", user.getUid());
-                        //startActivity(new Intent(HomePage.this, Profile.class));
-                    //finish();
+                    else{
+                        startActivity(new Intent(HomePage.this, Profile.class));
+                        finish();
                     }
                 }
             }
         });
-
 
     }
 

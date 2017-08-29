@@ -18,12 +18,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import static android.R.attr.duration;
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
-import static fiftyfive.and_firebase_mcommerce.Utils.*;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -39,8 +35,6 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
 
         //Database
-        //final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         Utils.initDatabase();
         DatabaseReference rootDB = Utils.getDatabaseRoot();
 
@@ -74,7 +68,7 @@ public class SplashScreen extends AppCompatActivity {
                 Log.i("Comments", "First time");
                 // first time task
                 mAuth = FirebaseAuth.getInstance();
-                final FirebaseUser currentUser = mAuth.getCurrentUser();
+                //final FirebaseUser currentUser = mAuth.getCurrentUser();
                 mAuth.signInAnonymously()
                         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override
@@ -84,11 +78,7 @@ public class SplashScreen extends AppCompatActivity {
                                     Log.i("SignIn", "signInAnonymously:success");
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     Log.i("UID = ", user.getUid());
-                                    //DatabaseReference usersRef = database.getReference("users");
-                                    //Log.i("DB: ", "usersRef:success");
                                     User.writeNewUser(user.getUid());
-                                    //usersRef.child(user.getUid()).setValue(new User(user.getUid()));
-
                                     final Toast toast = Toast.makeText(getApplicationContext(), "Network OK. AnonymousAuth. Product database synced!", Toast.LENGTH_SHORT);
                                     toast.show();
                                 } else {
