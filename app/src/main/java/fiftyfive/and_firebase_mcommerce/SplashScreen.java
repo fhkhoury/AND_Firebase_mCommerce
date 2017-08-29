@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -18,6 +19,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import static android.R.attr.duration;
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -37,33 +41,8 @@ public class SplashScreen extends AppCompatActivity {
         //checke si connection internet
         if(Utils.isNetworkAvailable(this)) {
             Log.i("Connection : ", " Connextion is OK");
-            mAuth = FirebaseAuth.getInstance();
-            final FirebaseUser currentUser = mAuth.getCurrentUser();
 
-            if (settings.getBoolean("my_first_time", true)) {
-                //the app is being launched for first time, do something
-                Log.i("Comments", "First time");
-                // first time task
-                mAuth.signInAnonymously()
-                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    Log.i("SignIn", "signInAnonymously:success");
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    Log.i("UID = ", user.getUid());
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Log.i("SignIn", "signInAnonymously:failure", task.getException());
-                                }
-                            }
-                        });
-                // record the fact that the app has been started at least once
-                settings.edit().putBoolean("my_first_time", false).commit();
-            } else {
-                Log.i("Comments", "Not the First time");
-            }
+            //Database
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             database.setPersistenceEnabled(true);//Enable database persisitance
             //Retrieve and Keep synced categories and products
@@ -84,10 +63,44 @@ public class SplashScreen extends AppCompatActivity {
                     Log.i("info", "Database is KO");
                 }
             });
+
+            if (settings.getBoolean("my_first_time", true)) {
+                //the app is being launched for first time, do something
+                Log.i("Comments", "First time");
+                // first time task
+                mAuth = FirebaseAuth.getInstance();
+                final FirebaseUser currentUser = mAuth.getCurrentUser();
+                mAuth.signInAnonymously()
+                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    // Sign in success, update UI with the signed-in user's information
+                                    Log.i("SignIn", "signInAnonymously:success");
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    Log.i("UID = ", user.getUid());
+                                    final Toast toast = Toast.makeText(getApplicationContext(), "Network OK. AnonymousAuth. Product database synced!", Toast.LENGTH_SHORT);
+                                    toast.show();
+                                } else {
+                                    // If sign in fails, display a message to the user.
+                                    Log.i("SignIn", "signInAnonymously:failure", task.getException());
+                                }
+                            }
+                        });
+                // record the fact that the app has been started at least once
+                settings.edit().putBoolean("my_first_time", false).commit();
+            } else {
+                Log.i("Comments", "Not the First time");
+                final Toast toast = Toast.makeText(this, "Network OK. Product database synced!", Toast.LENGTH_SHORT);
+                toast.show();
+            }
         }
         else{
             Log.i("Connection : ", " Connection is KO");
+            final Toast toast = Toast.makeText(this, "No Network available. Unable to sync product database!", Toast.LENGTH_SHORT);
+            toast.show();
         }
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
