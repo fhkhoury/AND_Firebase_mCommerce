@@ -4,6 +4,8 @@ A sample m-commerce app to implement the Firebase Stack
 
 ## 0 - Project History
 
+- August 29th, 5:30pm | Customize the behavior of 'connect' button regarding to the user status
+
 - August 29th, 4:30pm | Create anonymous user freshly autenticated in the database
      - Create a "User.java" class which allow to create a user and write it to the Firebase database
      - Create a "Utils.java" class to init and use the Firebase database
