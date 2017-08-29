@@ -4,6 +4,10 @@ A sample m-commerce app to implement the Firebase Stack
 
 ## 0 - Project History
 
+- August 29th, 12:15pm | invert Database & 1st launch check
+     - Invert get database and 1st launch check 
+     - Add toast to display network, auth and database status on splashscreen
+
 - August 29th, 11:30am | Add connectivity check at start
      - If connection is available, check if it's the first run to launch Anonymous auth. 
      - If not, display HP directly
