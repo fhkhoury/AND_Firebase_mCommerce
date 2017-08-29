@@ -4,7 +4,12 @@ A sample m-commerce app to implement the Firebase Stack
 
 ## 0 - Project History
 
-- August 29th, 12:15pm | invert Database & 1st launch check
+- August 29th, 4:30pm | Create anonymous user freshly autenticated in the database
+     - Create a "User.java" class which allow to create a user and write it to the Firebase database
+     - Create a "Utils.java" class to init and use the Firebase database
+     - Update the "splashscreen" screen to write the new user in the database after a n Anonymous authentication.
+
+- August 29th, 12:15pm | Invert Database & 1st launch check
      - Invert get database and 1st launch check 
      - Add toast to display network, auth and database status on splashscreen
 
