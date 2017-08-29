@@ -3,6 +3,7 @@ package fiftyfive.and_firebase_mcommerce;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
+import android.provider.UserDictionary;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import static android.R.attr.duration;
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
+import static fiftyfive.and_firebase_mcommerce.Utils.*;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -36,19 +38,22 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
+        //Database
+        //final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        Utils.initDatabase();
+        DatabaseReference rootDB = Utils.getDatabaseRoot();
+
         final SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
 
         //checke si connection internet
         if(Utils.isNetworkAvailable(this)) {
             Log.i("Connection : ", " Connextion is OK");
 
-            //Database
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            database.setPersistenceEnabled(true);//Enable database persisitance
             //Retrieve and Keep synced categories and products
-            DatabaseReference categoriesRef = database.getReference("categories");
+            DatabaseReference categoriesRef = rootDB.child("categories");
             categoriesRef.keepSynced(true);
-            DatabaseReference productsRef = database.getReference("products");
+            DatabaseReference productsRef = rootDB.child("products");
             productsRef.keepSynced(true);
             //TODO: Test de la BDD
             categoriesRef.addValueEventListener(new ValueEventListener() {
@@ -79,6 +84,11 @@ public class SplashScreen extends AppCompatActivity {
                                     Log.i("SignIn", "signInAnonymously:success");
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     Log.i("UID = ", user.getUid());
+                                    //DatabaseReference usersRef = database.getReference("users");
+                                    //Log.i("DB: ", "usersRef:success");
+                                    User.writeNewUser(user.getUid());
+                                    //usersRef.child(user.getUid()).setValue(new User(user.getUid()));
+
                                     final Toast toast = Toast.makeText(getApplicationContext(), "Network OK. AnonymousAuth. Product database synced!", Toast.LENGTH_SHORT);
                                     toast.show();
                                 } else {
