@@ -69,7 +69,6 @@ public class SplashScreen extends AppCompatActivity {
                 Log.i("Comments", "First time");
                 // first time task
                 mAuth = FirebaseAuth.getInstance();
-                //final FirebaseUser currentUser = mAuth.getCurrentUser();
                 mAuth.signInAnonymously()
                         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override
