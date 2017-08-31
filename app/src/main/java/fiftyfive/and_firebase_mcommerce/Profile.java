@@ -3,7 +3,6 @@ package fiftyfive.and_firebase_mcommerce;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -12,9 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -94,7 +90,7 @@ public class Profile extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_cart:
-                Intent i = new Intent(Profile.this, Cart.class);
+                Intent i = new Intent(Profile.this, Basket.class);
                 startActivity(i);
                 return true;
             case R.id.action_informations:

@@ -63,7 +63,7 @@ public class Promo extends AppCompatActivity{
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_cart:
-                Intent i = new Intent(Promo.this, Cart.class);
+                Intent i = new Intent(Promo.this, Basket.class);
                 startActivity(i);
                 return true;
             case R.id.action_informations:

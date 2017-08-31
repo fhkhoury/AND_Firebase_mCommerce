@@ -9,9 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import com.google.firebase.crash.FirebaseCrash;
-
-import fiftyfive.and_firebase_mcommerce.R;
 
 public class Informations extends AppCompatActivity {
     @Override
@@ -51,7 +48,7 @@ public class Informations extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_cart:
-                Intent i = new Intent(Informations.this, Cart.class);
+                Intent i = new Intent(Informations.this, Basket.class);
                 startActivity(i);
                 return true;
             case R.id.action_legal:

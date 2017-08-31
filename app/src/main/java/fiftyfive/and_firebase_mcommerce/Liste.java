@@ -5,18 +5,14 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import fiftyfive.and_firebase_mcommerce.R;
 
 import static fiftyfive.and_firebase_mcommerce.R.id.listView;
 
@@ -64,7 +60,7 @@ public class Liste extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_cart:
-                Intent i = new Intent(Liste.this, Cart.class);
+                Intent i = new Intent(Liste.this, Basket.class);
                 startActivity(i);
                 return true;
             case R.id.action_informations:
