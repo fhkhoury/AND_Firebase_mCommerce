@@ -50,6 +50,11 @@ public class Utils {
 
     }
 
+    public static DatabaseReference getDatabase(){
+       return mDatabase;
+
+    }
+
     public static DatabaseReference getDatabaseRoot(){
         mDatabase = FirebaseDatabase.getInstance().getReference();
         return mDatabase;

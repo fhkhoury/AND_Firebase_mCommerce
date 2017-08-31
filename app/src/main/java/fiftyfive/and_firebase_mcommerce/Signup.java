@@ -14,11 +14,19 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import fiftyfive.and_firebase_mcommerce.models.User;
+
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 
 /**
  * Created by Francois on 10/08/2017.
@@ -31,10 +39,15 @@ public class Signup extends AppCompatActivity {
     private ProgressBar progressBar;
     private FirebaseAuth mAuth;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+
+        DatabaseReference rootDB = Utils.getDatabaseRoot();
+
 
         //Get Firebase auth instance
         mAuth = FirebaseAuth.getInstance();
@@ -65,7 +78,7 @@ public class Signup extends AppCompatActivity {
             public void onClick(View v) {
 
                 final String email = inputEmail.getText().toString().trim();
-                String password = inputPassword.getText().toString().trim();
+                final String password = inputPassword.getText().toString().trim();
 
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
@@ -83,33 +96,56 @@ public class Signup extends AppCompatActivity {
                 }
 
                 progressBar.setVisibility(View.VISIBLE);
+                // Si utilisateur Anonyme alors linking avec le compte mail
+                if (mAuth.getCurrentUser().isAnonymous()) {
 
-                //create user
-                mAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(Signup.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                Toast.makeText(Signup.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
-                                progressBar.setVisibility(View.GONE);
-                                // If sign in fails, display a message to the user. If sign in succeeds
-                                // the auth state listener will be notified and logic to handle the
-                                // signed in user can be handled in the listener.
-                                if (!task.isSuccessful()) {
-                                    Toast.makeText(Signup.this, "Authentication failed." + task.getException(),
-                                            Toast.LENGTH_SHORT).show();
-                                } else {
-                                    // if sign in passes
-                                    //Create user in the database
-                                    //TODO: gère la création de user en base pas de linking de l'ancien
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    Log.i("UID = ", user.getUid());
-                                    User.createNewUser(user.getUid(), email); // A renommer pour le linking anonymous/newcount
-                                    // Go to Profile
-                                    startActivity(new Intent(Signup.this, Profile.class));
-                                    finish();
+                    AuthCredential credential = EmailAuthProvider.getCredential(email, password);
+
+                    Task<AuthResult> authResultTask = mAuth.getCurrentUser().linkWithCredential(credential)
+                            .addOnCompleteListener(Signup.this, new OnCompleteListener<AuthResult>() {
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        Log.i("Linking: ", "linkWithCredential:success");
+                                        FirebaseUser newUser = task.getResult().getUser();
+                                        Log.i("Linked user UID", newUser.getUid());
+                                        Log.i("Linked user email", newUser.getEmail());
+                                        User.updateAnonymoustoSignedUpAfterLinking(newUser.getUid(), newUser.getEmail());
+                                        startActivity(new Intent(Signup.this, Profile.class));
+                                        finish();
+                                    } else {
+                                        Log.i("Linking: ", "linkWithCredential:failure");
+                                        Toast.makeText(Signup.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+
+                                    }
                                 }
-                            }
-                        });
+                            });
+                }
+                // Sinon si user n'existe pas, création d'un nouvel utisateur
+                else if (mAuth.getCurrentUser() == null) {
+
+                    //create user
+                    mAuth.createUserWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(Signup.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    Toast.makeText(Signup.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
+                                    progressBar.setVisibility(View.GONE);
+                                    // If sign in fails, display a message to the user. If sign in succeeds
+                                    // the auth state listener will be notified and logic to handle the
+                                    // signed in user can be handled in the listener.
+                                    if (!task.isSuccessful()) {
+                                        Toast.makeText(Signup.this, "Authentication failed." + task.getException(),
+                                                Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Log.i("New user created UID", mAuth.getCurrentUser().getUid());
+                                        // if sign in passes
+                                        startActivity(new Intent(Signup.this, Profile.class));
+                                        finish();
+
+                                    }
+                                }
+                            });
+                }
 
             }
         });
@@ -120,5 +156,5 @@ public class Signup extends AppCompatActivity {
         super.onResume();
         progressBar.setVisibility(View.GONE);
     }
-}
 
+}
