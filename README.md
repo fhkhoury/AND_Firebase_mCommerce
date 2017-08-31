@@ -4,6 +4,9 @@ A sample m-commerce app to implement the Firebase Stack
 
 ## 0 - Project History
 
+- August 31st, 10:30pm - Anonymous auth linking
+     - When anonymous user signes up with his email and password, his account and profile are linked with the new on (account and database)
+
 - August 31st, 11:30am - Project structure
      - Create a models package with all data model classes
 
