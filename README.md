@@ -4,6 +4,9 @@ A sample m-commerce app to implement the Firebase Stack
 
 ## 0 - Project History
 
+- August 31st, 11:30am - Project structure
+     - Create a models package with all data model classes
+
 - August 29th, 5:30pm | Customize the behavior of 'connect' button regarding to the user status
 
 - August 29th, 4:30pm | Create anonymous user freshly autenticated in the database
