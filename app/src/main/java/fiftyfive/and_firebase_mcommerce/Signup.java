@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import fiftyfive.and_firebase_mcommerce.models.User;
 
 /**
  * Created by Francois on 10/08/2017.
@@ -25,7 +29,7 @@ public class Signup extends AppCompatActivity {
     private EditText inputEmail, inputPassword;
     private Button btnSignIn, btnSignUp, btnResetPassword;
     private ProgressBar progressBar;
-    private FirebaseAuth auth;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +37,7 @@ public class Signup extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
 
         //Get Firebase auth instance
-        auth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
         btnSignIn = (Button) findViewById(R.id.sign_in_button);
         btnSignUp = (Button) findViewById(R.id.sign_up_button);
@@ -60,7 +64,7 @@ public class Signup extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String email = inputEmail.getText().toString().trim();
+                final String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
 
                 if (TextUtils.isEmpty(email)) {
@@ -81,7 +85,7 @@ public class Signup extends AppCompatActivity {
                 progressBar.setVisibility(View.VISIBLE);
 
                 //create user
-                auth.createUserWithEmailAndPassword(email, password)
+                mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(Signup.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -95,6 +99,11 @@ public class Signup extends AppCompatActivity {
                                             Toast.LENGTH_SHORT).show();
                                 } else {
                                     // if sign in passes
+                                    //Create user in the database
+                                    //TODO: gère la création de user en base pas de linking de l'ancien
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    Log.i("UID = ", user.getUid());
+                                    User.createNewUser(user.getUid(), email); // A renommer pour le linking anonymous/newcount
                                     // Go to Profile
                                     startActivity(new Intent(Signup.this, Profile.class));
                                     finish();

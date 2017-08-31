@@ -3,7 +3,6 @@ package fiftyfive.and_firebase_mcommerce;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
-import android.provider.UserDictionary;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +18,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+
+import fiftyfive.and_firebase_mcommerce.models.User;
 
 
 public class SplashScreen extends AppCompatActivity {
@@ -78,7 +79,7 @@ public class SplashScreen extends AppCompatActivity {
                                     Log.i("SignIn", "signInAnonymously:success");
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     Log.i("UID = ", user.getUid());
-                                    User.writeNewUser(user.getUid());
+                                    User.createAnonymousUser(user.getUid());
                                     final Toast toast = Toast.makeText(getApplicationContext(), "Network OK. AnonymousAuth. Product database synced!", Toast.LENGTH_SHORT);
                                     toast.show();
                                 } else {

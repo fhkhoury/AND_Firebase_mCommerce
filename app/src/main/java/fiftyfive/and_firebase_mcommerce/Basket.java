@@ -18,7 +18,7 @@ import static fiftyfive.and_firebase_mcommerce.R.id.listView;
  * Created by Francois on 06/08/2017.
  */
 
-public class Cart extends AppCompatActivity {
+public class Basket extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class Cart extends AppCompatActivity {
 
         final List<Product> cartList = generateCartList();
 
-        ProductCartAdapter adapter = new ProductCartAdapter(Cart.this, cartList);
+        ProductCartAdapter adapter = new ProductCartAdapter(Basket.this, cartList);
         cartListView.setAdapter(adapter);
     }
 
@@ -48,11 +48,11 @@ public class Cart extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_informations:
-                Intent i = new Intent(Cart.this, Informations.class);
+                Intent i = new Intent(Basket.this, Informations.class);
                 startActivity(i);
                 return true;
             case R.id.action_legal:
-                Intent j = new Intent(Cart.this, Legal.class);
+                Intent j = new Intent(Basket.this, Legal.class);
                 startActivity(j);
                 return true;
         }

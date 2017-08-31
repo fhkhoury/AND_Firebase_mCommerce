@@ -14,8 +14,6 @@ import android.widget.ImageButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import static fiftyfive.and_firebase_mcommerce.R.id.promoBanner;
-
 public class HomePage extends AppCompatActivity {
 
     //private FirebaseAuth.AuthStateListener authListener;
@@ -114,7 +112,7 @@ public class HomePage extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_cart:
-                Intent i = new Intent(HomePage.this, Cart.class);
+                Intent i = new Intent(HomePage.this, Basket.class);
                 startActivity(i);
                 return true;
             case R.id.action_informations:

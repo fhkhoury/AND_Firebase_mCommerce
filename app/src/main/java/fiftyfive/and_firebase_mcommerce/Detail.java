@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,8 +13,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import fiftyfive.and_firebase_mcommerce.R;
 
 import static fiftyfive.and_firebase_mcommerce.R.id.productImage;
 
@@ -81,7 +78,7 @@ public class Detail extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_cart:
-                Intent i = new Intent(Detail.this, Cart.class);
+                Intent i = new Intent(Detail.this, Basket.class);
                 startActivity(i);
                 return true;
             case R.id.action_informations:
