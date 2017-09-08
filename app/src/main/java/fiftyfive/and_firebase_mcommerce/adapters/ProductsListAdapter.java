@@ -1,0 +1,81 @@
+package fiftyfive.and_firebase_mcommerce.views;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+import fiftyfive.and_firebase_mcommerce.R;
+import fiftyfive.and_firebase_mcommerce.models.Product;
+
+/**
+ * Created by Francois on 07/09/2017.
+ */
+
+public class ProductsListAdapter extends ArrayAdapter<Product> {
+
+    public ProductsListAdapter(Context context, List<Product> listProducts) {
+        super(context, 0, listProducts);
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+
+        if(convertView == null){
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.row_list_product,parent, false);
+        }
+
+        ProductViewHolder viewHolder = (ProductViewHolder) convertView.getTag();
+        if(viewHolder == null){
+            viewHolder = new ProductViewHolder();
+            viewHolder.productMiniature = (ImageView) convertView.findViewById(R.id.productMiniature);
+            viewHolder.productName = (TextView) convertView.findViewById(R.id.productName);
+            viewHolder.productBrand = (TextView) convertView.findViewById(R.id.productBrand);
+            viewHolder.productPrice = (TextView) convertView.findViewById(R.id.productPrice);
+
+            convertView.setTag(viewHolder);
+        }
+
+        //getItem(position) va récupérer l'item [position] de la List<Tweet> tweets
+        Product product = getItem(position);
+
+        //il ne reste plus qu'à remplir notre vue
+        try{
+        URL thumb_u = new URL(product.getProductMiniature());
+        Drawable thumb_d = Drawable.createFromStream(thumb_u.openStream(), "src");
+        viewHolder.productMiniature.setImageDrawable(thumb_d);}
+        catch (Exception e) {
+            // handle it
+        }
+        viewHolder.productName.setText(product.getName());
+        viewHolder.productBrand.setText("from: " + product.getBrand());
+        viewHolder.productPrice.setText(String.valueOf(product.getPrice())+ " €");
+
+
+        return convertView;
+    }
+
+    private class ProductViewHolder{
+        public ImageView productMiniature;
+        public TextView productName;
+        public TextView productBrand;
+        public TextView productPrice;
+
+    }
+
+}
+

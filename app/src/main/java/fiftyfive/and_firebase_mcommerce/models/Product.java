@@ -1,4 +1,4 @@
-package fiftyfive.and_firebase_mcommerce;
+package fiftyfive.and_firebase_mcommerce.models;
 
 import android.graphics.Color;
 import android.util.Log;
@@ -18,15 +18,15 @@ import java.util.ArrayList;
 @IgnoreExtraProperties
 public class Product {
 
-    private String mProductMiniature:
+    private String mProductMiniature;
     private String mName;
     private String mVariant;
     private String mBrand;
     private String mCategory;
     private ArrayList<String> mDesc;
     private Double mPrice;
-    private boolean mIsDiscounted;
-    private Double mOldPrice;
+    private Boolean mIsDiscounted;
+    private Double mOriginalPrice;
     private String mCurrency;
     private ArrayList<String> mProductPics;
 
@@ -38,7 +38,7 @@ public class Product {
 
     public Product(String productMiniature, String name, String variant, String brand,
                    String category, ArrayList<String> desc, Double price, Boolean isDiscounted,
-                   Double oldPrice, String currency, ArrayList<String> productPics) {
+                   Double originalPrice, String currency, ArrayList<String> productPics) {
 
         this.mProductMiniature = productMiniature;
         this.mName = name;
@@ -48,7 +48,8 @@ public class Product {
         this.mDesc = desc;
         this.mPrice = price;
         this.mIsDiscounted = isDiscounted;
-        this.mOldPrice = oldPrice;
+        this.mOriginalPrice = originalPrice;
+        this.mCurrency = currency;
         this.mProductPics = productPics;
     }
 
@@ -92,8 +93,8 @@ public class Product {
         return mIsDiscounted;
     }
 
-    public Double getmOldPrice(){
-        return mOldPrice;
+    public Double gemOriginallPrice(){
+        return mOriginalPrice;
     }
 
     public String getCurrency(){
