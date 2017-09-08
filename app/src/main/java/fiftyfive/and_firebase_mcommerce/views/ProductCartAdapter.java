@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import fiftyfive.and_firebase_mcommerce.models.Product;
+
 /**
  * Created by Francois on 06/08/2017.
  */
@@ -26,7 +28,7 @@ public class ProductCartAdapter extends ArrayAdapter<Product> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if(convertView == null){
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.row_product,parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.row_listProduct,parent, false);
         }
 
         ProductViewHolder viewHolder = (ProductViewHolder) convertView.getTag();
