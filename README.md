@@ -4,6 +4,11 @@ A sample m-commerce app to implement the Firebase Stack
 
 ## 0 - Project History
 
+- September 9th, 8:30am - Fill product list from the database
+     - "List" screen is now more generic 
+     - Remove statical data from the app
+     - "Promo" class does not exist anymore
+
 - August 31st, 10:30pm - Anonymous auth linking
      - When anonymous user signes up with his email and password, his account and profile are linked with the new on (account and database)
 
