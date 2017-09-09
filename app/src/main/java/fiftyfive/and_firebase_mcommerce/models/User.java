@@ -81,20 +81,6 @@ public class User {
         Log.i("DB", "Writing:success");
     }
 
-    public static void updateAnonymouswithNewData(String uid, String mail){
-        DatabaseReference usersRef  = Utils.getDatabaseNode(uid);
-        String key = usersRef.push().getKey();
-        Log.i("key; ", key);
-        User user = new User("noProfilePic", "Not defined", mail, "Not defined", "Not defined");
-        Map<String, Object> userValues = user.toMap();
-
-        Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put(key, userValues);
-        usersRef.updateChildren(childUpdates);
-        Log.i("DB", "Update:success");
-    }
-
-
     public static void updateAnonymoustoSignedUpAfterLinking(String uid, String mail){
         //Ecriture du mail renseigné dans le profil en BDD
         DatabaseReference userMailRef = Utils.getDatabaseRoot().child("users").child(uid).child("mail");

@@ -1,7 +1,6 @@
 package fiftyfive.and_firebase_mcommerce;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,7 +9,11 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import fiftyfive.and_firebase_mcommerce.models.Product;
+import fiftyfive.and_firebase_mcommerce.adapters.ProductCartAdapter;
 
 import static fiftyfive.and_firebase_mcommerce.R.id.listView;
 
@@ -23,16 +26,16 @@ public class Basket extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cart);
+        setContentView(R.layout.activity_basket);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
         final ListView cartListView = (ListView) findViewById(listView);
 
-        final List<Product> cartList = generateCartList();
+        final HashMap<String, Product> cartList = generateCartList();
 
-        ProductCartAdapter adapter = new ProductCartAdapter(Basket.this, cartList);
+        ProductCartAdapter adapter = new ProductCartAdapter(cartList);
         cartListView.setAdapter(adapter);
     }
 
@@ -60,12 +63,12 @@ public class Basket extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private List<Product> generateCartList() {
+    private HashMap<String, Product> generateCartList() {
         //TODO: Load articles form Firebase Real-Time Database
-        List<Product> cartList = new ArrayList<Product>();
-        cartList.add(new Product(Color.BLUE, "SONY Playstation 4 - 500 Go Slim", "- Plate-forme : PlayStation 4\n" +
-                "- Edition : Slim 500Go\n" +
-                "- Des couleurs riches et éclatantes avec les graphismes HDR d’une qualité exceptionnelle."));
+        HashMap<String, Product> cartList = new HashMap<>();
+        //cartList.add(new Product(Color.BLUE, "SONY Playstation 4 - 500 Go Slim", "- Plate-forme : PlayStation 4\n" +
+        //        "- Edition : Slim 500Go\n" +
+        //        "- Des couleurs riches et éclatantes avec les graphismes HDR d’une qualité exceptionnelle."));
         return cartList;
     }
 }

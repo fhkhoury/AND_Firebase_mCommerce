@@ -4,11 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
-    >
+    android:padding="10dp">
 
     <ImageView
-        android:id="@+id/productImage"
+        android:id="@+id/productMiniature"
         android:layout_width="50dp"
         android:layout_height="50dp"
         tools:background="#AAA" />
@@ -19,21 +18,29 @@
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
         android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/productImage"
-        android:layout_alignTop="@+id/productImage"
         android:textStyle="bold"
-        tools:text="Product Name" />
+        tools:text="Product Name"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/productMiniature" />
 
     <TextView
-        android:id="@+id/productDescription"
+        android:id="@+id/productBrand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
         android:layout_alignLeft="@+id/productName"
         android:layout_below="@+id/productName"
-        tools:text="Product Description" />
+        tools:text="Product Brand" />
 
+    <TextView
+        android:id="@+id/productPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        tools:text="Product Price"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
 
-    </RelativeLayout>
+</RelativeLayout>
 
 

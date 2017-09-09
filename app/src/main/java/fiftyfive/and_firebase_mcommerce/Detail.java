@@ -3,6 +3,7 @@ package fiftyfive.and_firebase_mcommerce;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +14,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+
+import java.net.URL;
+
+import fiftyfive.and_firebase_mcommerce.models.Cart;
 
 import static fiftyfive.and_firebase_mcommerce.R.id.productImage;
 
@@ -30,19 +37,29 @@ public class Detail extends AppCompatActivity {
 
         Context context = getApplicationContext();
 
+        final String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
         //Get value information about selected product in the list
-        int productColor = getIntent().getIntExtra("SELECTED_PRODUCT_COLOR", Color.TRANSPARENT);
+        String productMiniature = getIntent().getStringExtra("SELECTED_PRODUCT_MINIATURE");
         String productName = getIntent().getStringExtra("SELECTED_PRODUCT_NAME");
-        String productDesc = getIntent().getStringExtra("SELECTED_PRODUCT_DESC");
+        String productBrand = getIntent().getStringExtra("SELECTED_PRODUCT_BRAND");
+        //Double productPrice = getIntent().getDoubleExtra("SELECTED_PRODUCT_PRICE");
+
 
         ImageView ImageOfProduct = (ImageView) findViewById(productImage);
-        ImageOfProduct.setBackgroundColor(productColor);
+        try{
+            URL thumb_u = new URL(productMiniature);
+            Drawable thumb_d = Drawable.createFromStream(thumb_u.openStream(), "src");
+            ImageOfProduct.setImageDrawable(thumb_d);}
+        catch (Exception e) {
+            // handle it
+        }
 
         TextView NameOfProduct= (TextView) findViewById(R.id.productName);
         NameOfProduct.setText(productName);
 
         TextView DescriptionOfProduct= (TextView) findViewById(R.id.productDescription);
-        DescriptionOfProduct.setText(productDesc);
+        DescriptionOfProduct.setText(productBrand);
 
 
         //Définition du toast
@@ -54,10 +71,24 @@ public class Detail extends AppCompatActivity {
 
 
 
-        Button call = (Button) findViewById(R.id.addToCart);
-        call.setOnClickListener(new View.OnClickListener() {
+        final Button addToCart = (Button) findViewById(R.id.addToCart);
+        addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Cart.addToCart(userId, "786936215595", 300.00);
+                //addToCart("786936215595", userId);
+                //Check cart existe
+                    //Si non, créer un noeud 'uid' dans le noeud "carts" de la bdd
+
+                    //Si oui, check si produit déjà dans panier
+                        //Si oui incrémenter la quantité de 1
+                        //Si non ajoutet un produit enfant dans le noeud article
+
+                        //Incrémenter le nbOfArticles de 1
+
+                        //Update le sub-total
+
+
                 //TODO: Mettre ici le code d'ajout du produit à Firebase RTDB
                 toast.show();
             }
@@ -92,6 +123,23 @@ public class Detail extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    void addToCart(String sku, String userId){
+        //Cart.checkIfCartExist(userId);
+        /*if(!Cart.checkIfCartExist(userId)){
+            //si le panier n'existe pas, créer un noeud 'uid' dans le noeud "carts" de la bdd
+            Cart.createNewCart(userId);
+        }
+        else{
+            //Si le panier existe, check si produit déjà dans panier
+            if(Cart.checkIfProductExistInTheCart(userId, sku)){
+
+            }
+            else{
+
+            }
+        }*/
     }
 
 }
