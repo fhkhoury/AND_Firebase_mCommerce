@@ -41,7 +41,8 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Goto Promo
-                Intent i = new Intent(HomePage.this, Promo.class);
+                Intent i = new Intent(HomePage.this, Liste.class);
+                i.putExtra("SELECTED_CATEGORY_ID", "Jewelry");
                 startActivity(i);
                 finish();
             }
@@ -53,6 +54,7 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(HomePage.this, Liste.class);
+                i.putExtra("SELECTED_CATEGORY_ID", "Video Games");
                 startActivity(i);
                 finish();
             }

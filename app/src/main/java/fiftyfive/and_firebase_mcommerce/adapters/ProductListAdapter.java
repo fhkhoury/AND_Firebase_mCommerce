@@ -1,5 +1,6 @@
-package fiftyfive.and_firebase_mcommerce.views;
+package fiftyfive.and_firebase_mcommerce.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,30 +17,35 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 import fiftyfive.and_firebase_mcommerce.R;
 import fiftyfive.and_firebase_mcommerce.models.Product;
 
+
 /**
  * Created by Francois on 07/09/2017.
  */
 
-public class ProductsListAdapter extends ArrayAdapter<Product> {
+public class ProductListAdapter extends ArrayAdapter<Product> {
 
-    public ProductsListAdapter(Context context, List<Product> listProducts) {
-        super(context, 0, listProducts);
+
+    //tweets est la liste des models à afficher
+    public ProductListAdapter(Context context, List<Product> cartProducts) {
+        super(context, 0, cartProducts);
     }
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
 
         if(convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.row_list_product,parent, false);
         }
 
         ProductViewHolder viewHolder = (ProductViewHolder) convertView.getTag();
+
         if(viewHolder == null){
             viewHolder = new ProductViewHolder();
             viewHolder.productMiniature = (ImageView) convertView.findViewById(R.id.productMiniature);
@@ -55,27 +61,44 @@ public class ProductsListAdapter extends ArrayAdapter<Product> {
 
         //il ne reste plus qu'à remplir notre vue
         try{
-        URL thumb_u = new URL(product.getProductMiniature());
-        Drawable thumb_d = Drawable.createFromStream(thumb_u.openStream(), "src");
-        viewHolder.productMiniature.setImageDrawable(thumb_d);}
+            URL thumb_u = new URL(product.getProductMiniature());
+            Drawable thumb_d = Drawable.createFromStream(thumb_u.openStream(), "src");
+            viewHolder.productMiniature.setImageDrawable(thumb_d);}
         catch (Exception e) {
             // handle it
         }
         viewHolder.productName.setText(product.getName());
-        viewHolder.productBrand.setText("from: " + product.getBrand());
-        viewHolder.productPrice.setText(String.valueOf(product.getPrice())+ " €");
+        viewHolder.productBrand.setText("from " + product.getBrand());
+        viewHolder.productPrice.setText(String.valueOf(product.getPrice()) + " €");
 
 
         return convertView;
     }
 
-    private class ProductViewHolder{
+    private class ProductViewHolder {
         public ImageView productMiniature;
         public TextView productName;
         public TextView productBrand;
         public TextView productPrice;
-
     }
 
+
+    public static Bitmap getBitmapFromURL(String src) {
+        try {
+            Log.e("src",src);
+            URL url = new URL(src);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap myBitmap = BitmapFactory.decodeStream(input);
+            Log.e("Bitmap","returned");
+            return myBitmap;
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e("Exception",e.getMessage());
+            return null;
+        }
+    }
 }
 

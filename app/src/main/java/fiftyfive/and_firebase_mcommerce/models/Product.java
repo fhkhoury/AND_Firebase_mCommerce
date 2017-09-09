@@ -93,7 +93,7 @@ public class Product {
         return mIsDiscounted;
     }
 
-    public Double gemOriginallPrice(){
+    public Double getOriginalPrice(){
         return mOriginalPrice;
     }
 

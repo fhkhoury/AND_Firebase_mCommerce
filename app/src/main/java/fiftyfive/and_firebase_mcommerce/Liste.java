@@ -4,13 +4,13 @@ import android.content.Intent;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -23,14 +23,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fiftyfive.and_firebase_mcommerce.models.Product;
-import fiftyfive.and_firebase_mcommerce.views.ProductsListAdapter;
-
-import static fiftyfive.and_firebase_mcommerce.R.id.listView;
+import fiftyfive.and_firebase_mcommerce.adapters.ProductListAdapter;
 
 
 public class Liste extends AppCompatActivity {
-
-    String category = "Game";
 
     @Override
 
@@ -43,35 +39,46 @@ public class Liste extends AppCompatActivity {
 
         final ListView listView = (ListView) findViewById(R.id.listView);
 
-
+        //Get value information about selected product in the list
+        String category = getIntent().getStringExtra("SELECTED_CATEGORY_ID");
 
         final List<String> productIdList = getProductIdListFromCategory(category);
-
         final ArrayList<Product> productList = new ArrayList<>();
-        DatabaseReference categoryNode = Utils.getDatabaseRoot().child("products").getRef();
+
+        final DatabaseReference categoryNode = Utils.getDatabaseRoot().child("products").getRef();
         categoryNode.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 productList.clear();
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    System.out.println(postSnapshot.getKey());
 
                     Product product = postSnapshot.getValue(Product.class);
 
+                    // Boucle pour chaque id produit de la categore, je récupère les détails du produit dans la base pour remplr les produits de ma liste
                     for(int i=0; i<productIdList.size(); i++){
                         if(productIdList.get(i).equals(postSnapshot.getKey())){
                             productList.add(product);
-                            System.out.println(product.getProductMiniature());
+                            System.out.println(postSnapshot.getKey());
                             System.out.println(product.getName());
-                            System.out.println(product.getBrand());
-                            System.out.println(product.getPrice());
                         }
 
                     }
-                    // here you can access to name property like university.name
                 }
-                ProductsListAdapter adapter = new ProductsListAdapter(Liste.this, productList);
+                ProductListAdapter adapter = new ProductListAdapter(Liste.this, productList);
                 listView.setAdapter(adapter);
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    public void onItemClick(AdapterView<?> listView, View itemView, int itemPosition, long itemId)
+                    {
+                        Product selectedProduct = (Product) listView.getItemAtPosition(itemPosition);
+
+                        Intent i = new Intent(Liste.this, Detail.class);
+                        i.putExtra("SELECTED_PRODUCT_MINIATURE", selectedProduct.getProductMiniature());
+                        i.putExtra("SELECTED_PRODUCT_NAME", selectedProduct.getName());
+                        i.putExtra("SELECTED_PRODUCT_BRAND", selectedProduct.getBrand());
+                        i.putExtra("SELECTED_PRODUCT_PRICE", selectedProduct.getPrice());
+                        startActivity(i);
+                    }
+                });
             }
 
             @Override
@@ -79,7 +86,6 @@ public class Liste extends AppCompatActivity {
 
             }
         });
-
 
     }
 
@@ -112,7 +118,7 @@ public class Liste extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
+    //récupération de la liste des id produits de la categorie dans le noeud "categories" de la base
     List<String> getProductIdListFromCategory(String categoryName){
         final List<String> productIdList = new ArrayList<String>();
 
@@ -135,21 +141,6 @@ public class Liste extends AppCompatActivity {
         return productIdList;
     }
 
-    /*ArrayList<Product> buildProductList(final List<String> productIdList){
-        final ArrayList<Product> productList = new ArrayList<Product>();
-        Query query;
-                // Boucle pour chaque id produit de la categore, je récupère les détails du produit dans la base pour remplr le roduit
-
-        for (int i = 0; i < productIdList.size(); i++) {
-            query = getProductViaSku(productIdList.get(i))
-            productList.add(getProductViaSku(productIdList.get(i)));
-
-        }
-
-        return productList;
-
-    }*/
-
 
     Query getProductViaSku (String sku){
         DatabaseReference productsNode = Utils.getDatabaseRoot().child("products").getRef();
@@ -168,91 +159,5 @@ public class Liste extends AppCompatActivity {
         queryRef.addValueEventListener(productEventListener);
         return queryRef;
     }
-
-    /*private void generateProductList(String categoryName, final List<Product> productList){
-        //final List<Product> productList = new ArrayList<Product>();
-
-        //récupération de la liste des id produits de la categorie dans la basse
-        final List<String> productIdList = new ArrayList<>();
-        DatabaseReference categoryNode = Utils.getDatabaseRoot().child("categories").child(categoryName).getRef();
-
-        ValueEventListener productFromCategoryListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot productSnapshot: dataSnapshot.getChildren()){
-                    Log.i("productValue :", productSnapshot.getValue().toString());
-                    productIdList.add(productSnapshot.getValue().toString());
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
-        categoryNode.addListenerForSingleValueEvent(productFromCategoryListener);
-
-        // Boucle pour chaque id produit de la categore, je récupère les détails du produit dans la base pour remplr le roduit
-        DatabaseReference productsNode = Utils.getDatabaseRoot().child("products").getRef();
-
-        ValueEventListener productListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot productSnapshot: dataSnapshot.getChildren()){
-                    Log.i("Product key : ", productSnapshot.getKey());
-                    Product product = productSnapshot.getValue(Product.class);
-                    for(int i= 0; i<productIdList.size(); i ++) {
-                        Log.i("Product Id : ", productIdList.get(i));
-
-                        if (productIdList.get(i).equals(productSnapshot.getKey()) ){
-                            System.out.println("blabla");
-                            productList.add(product);
-                        }
-
-                    }
-
-                }
-                //System.out.println(productList.size());
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.i("TAG", "loadPost:onCancelled", databaseError.toException());
-            }
-        };
-        productsNode.addValueEventListener(productListener);
-
-
-       //for (int j=0; j<productList.size(); f++)
-
-        //return productList;
-
-        /*productList.add(new Product(Color.BLUE, "SONY Playstation 4 - 500 Go Slim", "- Plate-forme : PlayStation 4\n" +
-                "- Edition : Slim 500Go\n" +
-                "- Des couleurs riches et éclatantes avec les graphismes HDR d’une qualité exceptionnelle."));
-        //productList.add(Product.getProductFromSku(sku));
-        productList.add(new Product(Color.BLUE, "SONY Playstation 4 Pro", "- Plate-forme: PlayStation 4\n" +
-                "- Edition: Pro\n" +
-                "- La PlayStation la plus puissante jamais conçue."));
-        productList.add(new Product(Color.GREEN, "MICROSOFT - Console Xbox One (ancien modèle)", "Inclus avec le produit :\n" +
-                "- 1 manette sans fil\n" +
-                "- 1 micro casque filaire\n" +
-                "- 1 bloc d'alimentation"));
-        productList.add(new Product(Color.GREEN, "MICROSOFT - Xbox One X", "La XBOX One X sortira le 7 novembre 2017\n" +
-                "- Plongez dans des univers de jeux en qualité 4K et laissez-vous entraîner par des images ultra-réalistes en 2160p\n" +
-                "- Ne ratez pas une image grâce à 326 Go/s de bande passante.\n" +
-                "- 6 téraflops de puissance de traitement graphique, pour des jeux plus performants que jamais."));
-        productList.add(new Product(Color.RED, "NINTENDO - Switch avec Joy-Con", "Important : du fait des quantités limitées nous ne pouvons autoriser qu'une précommande par client et par adresse.\n" +
-                "Contenu :\n" +
-                "- Console Nintendo Switch\n" +
-                "- Manette Joy-Con droite rouge néon et manette Joy-Con gauche bleu néon\n" +
-                "- support Joy-Con"));
-        productList.add(new Product(Color.RED, "NINTENDO - Switch avec paire de Joy-Con", "Important : du fait des quantités limitées nous ne pouvons autoriser qu'une précommande par client et par adresse.\n" +
-                "Contenu :\n" +
-                "- Console Nintendo Switch\n" +
-                "- Manette Joy-Con droite grise et manette Joy-Con gauche grise"));
-        return productList;
-    }*/
 
 }
