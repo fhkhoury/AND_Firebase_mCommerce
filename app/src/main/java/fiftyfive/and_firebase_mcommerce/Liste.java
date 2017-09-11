@@ -77,12 +77,15 @@ public class Liste extends AppCompatActivity {
 
                 //Send a view_item_list event with pomotional info only if user selected Jewelry category
 
+                    mFirebaseAnalytics.logEvent("PROMO", new Bundle());
+                System.out.println(FirebaseAnalytics.Event.VIEW_ITEM_LIST);
+
                     Bundle bundle = new Bundle();
-                    bundle.putString(FirebaseAnalytics.Param.ITEM_CATEGORY, category);
+                    bundle.putString("item_category", category);
                     Bundle ecommerce = new Bundle();
                     ecommerce.putString("currencyCode", "EUR");
 
-                    Bundle impressions = new Bundle();
+                    Bundle impressionList = new Bundle();
                     Bundle impression = new Bundle();
 
                     for(int i=0; i<productList.size(); i++){
@@ -96,12 +99,14 @@ public class Liste extends AppCompatActivity {
                         impression.putInt("position", i+1);
 
 
-                        impressions.putBundle(String.valueOf(i+1), impression);
+                        impressionList.putBundle(String.valueOf(i+1), impression);
                     }
+                    System.out.print(impressionList);
 
-                    ecommerce.putBundle("impressions", impressions);
+                    ecommerce.putBundle("impressionList", impressionList);
                     bundle.putBundle("ecommerce", ecommerce);
-                    mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM_LIST, bundle);
+                    System.out.print(bundle.keySet());
+                    mFirebaseAnalytics.logEvent("view_item_list", bundle);
 
                 ProductListAdapter adapter = new ProductListAdapter(Liste.this, productList);
                 listView.setAdapter(adapter);
