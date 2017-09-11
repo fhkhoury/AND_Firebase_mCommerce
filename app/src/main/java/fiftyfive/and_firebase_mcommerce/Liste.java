@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,6 +29,10 @@ import fiftyfive.and_firebase_mcommerce.adapters.ProductListAdapter;
 
 public class Liste extends AppCompatActivity {
 
+
+    private FirebaseAnalytics mFirebaseAnalytics;
+
+
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +45,14 @@ public class Liste extends AppCompatActivity {
         final ListView listView = (ListView) findViewById(R.id.listView);
 
         //Get value information about selected product in the list
-        String category = getIntent().getStringExtra("SELECTED_CATEGORY_ID");
+        final String category = getIntent().getStringExtra("SELECTED_CATEGORY_ID");
+
+        // Obtain the FirebaseAnalytics instance.
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
 
         final List<String> productIdList = getProductIdListFromCategory(category);
+
         final ArrayList<Product> productList = new ArrayList<>();
 
         final DatabaseReference categoryNode = Utils.getDatabaseRoot().child("products").getRef();
@@ -64,6 +74,35 @@ public class Liste extends AppCompatActivity {
 
                     }
                 }
+
+                //Send a view_item_list event with pomotional info only if user selected Jewelry category
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString(FirebaseAnalytics.Param.ITEM_CATEGORY, category);
+                    Bundle ecommerce = new Bundle();
+                    ecommerce.putString("currencyCode", "EUR");
+
+                    Bundle impressions = new Bundle();
+                    Bundle impression = new Bundle();
+
+                    for(int i=0; i<productList.size(); i++){
+                        impression.putString("id", String.valueOf(i+1));
+                        impression.putString("name", productList.get(i).getName());
+                        impression.putString("category", productList.get(i).getCategory());
+                        impression.putString("brand", productList.get(i).getBrand() );
+                        impression.putString("variant", productList.get(i).getVariant());
+                        //impression.putDouble("price", productList.get(i).getPrice());
+                        impression.putString("list", "bla");
+                        impression.putInt("position", i+1);
+
+
+                        impressions.putBundle(String.valueOf(i+1), impression);
+                    }
+
+                    ecommerce.putBundle("impressions", impressions);
+                    bundle.putBundle("ecommerce", ecommerce);
+                    mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM_LIST, bundle);
+
                 ProductListAdapter adapter = new ProductListAdapter(Liste.this, productList);
                 listView.setAdapter(adapter);
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
