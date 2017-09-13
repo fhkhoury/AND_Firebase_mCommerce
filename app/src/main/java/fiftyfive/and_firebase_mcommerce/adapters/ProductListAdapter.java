@@ -13,6 +13,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -60,13 +62,7 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
         Product product = getItem(position);
 
         //il ne reste plus qu'à remplir notre vue
-        try{
-            URL thumb_u = new URL(product.getProductMiniature());
-            Drawable thumb_d = Drawable.createFromStream(thumb_u.openStream(), "src");
-            viewHolder.productMiniature.setImageDrawable(thumb_d);}
-        catch (Exception e) {
-            // handle it
-        }
+        Picasso.with(parent.getContext()).load(product.getProductMiniature()).into(viewHolder.productMiniature);
         viewHolder.productName.setText(product.getName());
         viewHolder.productBrand.setText("from " + product.getBrand());
         viewHolder.productPrice.setText(String.valueOf(product.getPrice()) + " €");

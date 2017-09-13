@@ -58,8 +58,6 @@ public class Liste extends AppCompatActivity {
                     for(int i=0; i<productIdList.size(); i++){
                         if(productIdList.get(i).equals(postSnapshot.getKey())){
                             productList.add(product);
-                            System.out.println(postSnapshot.getKey());
-                            System.out.println(product.getName());
                         }
 
                     }
