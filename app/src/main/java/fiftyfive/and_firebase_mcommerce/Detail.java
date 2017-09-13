@@ -16,12 +16,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.net.URL;
 
 import fiftyfive.and_firebase_mcommerce.models.Cart;
+import fiftyfive.and_firebase_mcommerce.models.Product;
 
+import static fiftyfive.and_firebase_mcommerce.R.id.parent;
+import static fiftyfive.and_firebase_mcommerce.R.id.productBrand;
 import static fiftyfive.and_firebase_mcommerce.R.id.productImage;
+import static fiftyfive.and_firebase_mcommerce.R.id.productName;
+import static fiftyfive.and_firebase_mcommerce.R.id.productPrice;
 
 public class Detail extends AppCompatActivity {
 
@@ -35,39 +46,49 @@ public class Detail extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-        Context context = getApplicationContext();
+        final Context context = getApplicationContext();
 
         final String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         //Get value information about selected product in the list
-        String productMiniature = getIntent().getStringExtra("SELECTED_PRODUCT_MINIATURE");
-        String productName = getIntent().getStringExtra("SELECTED_PRODUCT_NAME");
-        String productBrand = getIntent().getStringExtra("SELECTED_PRODUCT_BRAND");
-        //Double productPrice = getIntent().getDoubleExtra("SELECTED_PRODUCT_PRICE");
+        String productSku = getIntent().getStringExtra("SELECTED_PRODUCT_SKU");
+
+        DatabaseReference productNode = Utils.getDatabaseRoot().child("products").child(productSku);
+        ValueEventListener productEventLister = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Product product = dataSnapshot.getValue(Product.class);
+
+                TextView brandOfProduct = (TextView) findViewById(productBrand);
+                brandOfProduct.setText(product.getBrand());
+
+                TextView NameOfProduct= (TextView) findViewById(productName);
+                NameOfProduct.setText(product.getName());
+
+                TextView PriceOfProduct = (TextView) findViewById(productPrice);
+                PriceOfProduct.setText(String.valueOf(product.getPrice())+" €");
+
+                ImageView ImageOfProduct = (ImageView) findViewById(productImage);
+                Picasso.with(context).load(product.getProductMiniature()).into(ImageOfProduct);
+
+                //TextView DescriptionOfProduct= (TextView) findViewById(R.id.productDescription);
+                //DescriptionOfProduct.setText(product.getDesc().toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        };
+        productNode.addListenerForSingleValueEvent(productEventLister);
 
 
-        ImageView ImageOfProduct = (ImageView) findViewById(productImage);
-        try{
-            URL thumb_u = new URL(productMiniature);
-            Drawable thumb_d = Drawable.createFromStream(thumb_u.openStream(), "src");
-            ImageOfProduct.setImageDrawable(thumb_d);}
-        catch (Exception e) {
-            // handle it
-        }
 
-        TextView NameOfProduct= (TextView) findViewById(R.id.productName);
-        NameOfProduct.setText(productName);
-
-        TextView DescriptionOfProduct= (TextView) findViewById(R.id.productDescription);
-        DescriptionOfProduct.setText(productBrand);
 
 
         //Définition du toast
         CharSequence text = "Added to cart !";
         int duration = Toast.LENGTH_LONG;
         final Toast toast = Toast.makeText(context, text, duration);
-
-
 
 
 
@@ -78,6 +99,7 @@ public class Detail extends AppCompatActivity {
                 Cart.addToCart(userId, "786936215595", 300.00);
                 //addToCart("786936215595", userId);
                 //Check cart existe
+
                     //Si non, créer un noeud 'uid' dans le noeud "carts" de la bdd
 
                     //Si oui, check si produit déjà dans panier
@@ -140,6 +162,25 @@ public class Detail extends AppCompatActivity {
 
             }
         }*/
+    }
+
+
+    public boolean checkIfCartExists(String uid){
+        final boolean[] result = {false};
+        Query cartCheck = Utils.getDatabaseRoot().child("carts").equalTo(uid);
+        cartCheck.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                result[0] = true;
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                result[0] = false;
+            }
+        });
+
+        return result[0];
     }
 
 }
