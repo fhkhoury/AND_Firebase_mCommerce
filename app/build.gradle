@@ -37,6 +37,9 @@ dependencies {
     //Firebase database
     compile 'com.google.firebase:firebase-database:11.0.4'
 
+    // A library to manage Images/Pics
+    compile 'com.squareup.picasso:picasso:2.5.2'
+
     testCompile 'junit:junit:4.12'
 }
 

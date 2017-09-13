@@ -115,6 +115,14 @@ public class Product {
         mName = name;
     }
 
+    public void setBrand(String brand){
+        mBrand = brand;
+    }
+
+    public void setPrice(Double price){
+        mPrice = price;
+    }
+
     //TODO: Compléter Setters
 
     /*public static Product getProductFromSku(String sku){
