@@ -4,7 +4,10 @@ A sample m-commerce app to implement the Firebase Stack
 
 ## 0 - Project History
 
-- Septemebt, 13th, 12pm - Fix issue in product list
+- Septemebr 13th, 3:15pm - Revamp liste & derail activities
+    - Revamp list & detail activities to pass only 1 parameter (product sku) betweeen them
+
+- Septemeber 13th, 12pm - Fix issue in product list
     - Now we have brand, price and product miniature pic
 
 - September 9th, 8:30am - Fill product list from the database
