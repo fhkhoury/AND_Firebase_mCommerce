@@ -15,7 +15,6 @@ import fiftyfive.and_firebase_mcommerce.Utils;
 
 import static android.R.attr.category;
 import static fiftyfive.and_firebase_mcommerce.R.id.productMiniature;
-import static fiftyfive.and_firebase_mcommerce.models.Cart.currency;
 
 /**
  * Created by Francois on 28/07/2017.

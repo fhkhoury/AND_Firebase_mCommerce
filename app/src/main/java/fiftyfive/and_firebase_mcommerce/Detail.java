@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,6 +34,7 @@ import static fiftyfive.and_firebase_mcommerce.R.id.productBrand;
 import static fiftyfive.and_firebase_mcommerce.R.id.productImage;
 import static fiftyfive.and_firebase_mcommerce.R.id.productName;
 import static fiftyfive.and_firebase_mcommerce.R.id.productPrice;
+import static fiftyfive.and_firebase_mcommerce.R.id.udid;
 
 public class Detail extends AppCompatActivity {
 
@@ -51,7 +53,7 @@ public class Detail extends AppCompatActivity {
         final String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         //Get value information about selected product in the list
-        String productSku = getIntent().getStringExtra("SELECTED_PRODUCT_SKU");
+        final String productSku = getIntent().getStringExtra("SELECTED_PRODUCT_SKU");
 
         DatabaseReference productNode = Utils.getDatabaseRoot().child("products").child(productSku);
         ValueEventListener productEventLister = new ValueEventListener() {
@@ -96,22 +98,38 @@ public class Detail extends AppCompatActivity {
         addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Cart.addToCart(userId, "786936215595", 300.00);
-                //addToCart("786936215595", userId);
                 //Check cart existe
+                Cart myCart = Cart.checkIfCartExists(userId);
+                System.out.println("Currrency = " + myCart.getCurrency());
+                    //Si oui, check si produit déjà dans panier
+                    /*if(myCart.checkIfProductExistInTheCart(userId, productSku)){
+                        //Si oui incrémenter la quantité de 1
+
+                    }
+                    else{
+                        //Si non ajoutet un produit enfant dans le noeud article
+                    }*/
+
+
 
                     //Si non, créer un noeud 'uid' dans le noeud "carts" de la bdd
-
-                    //Si oui, check si produit déjà dans panier
-                        //Si oui incrémenter la quantité de 1
-                        //Si non ajoutet un produit enfant dans le noeud article
-
-                        //Incrémenter le nbOfArticles de 1
-
-                        //Update le sub-total
+                    //myCart.createNewCartInDB(userId);
+                    //Créer le prodle produit au panier
+                    //myCart.createProductInCart(userId, productSku);
 
 
-                //TODO: Mettre ici le code d'ajout du produit à Firebase RTDB
+
+
+                //Incrémenter le nbOfArticles de 1
+                //myCart.incrementNbOfArticles(userId);
+
+
+                //Update le sub-total
+                //myCart.updateSubTotal(product.getPrice());
+
+
+
+
                 toast.show();
             }
         });
@@ -147,40 +165,23 @@ public class Detail extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    void addToCart(String sku, String userId){
-        //Cart.checkIfCartExist(userId);
-        /*if(!Cart.checkIfCartExist(userId)){
-            //si le panier n'existe pas, créer un noeud 'uid' dans le noeud "carts" de la bdd
-            Cart.createNewCart(userId);
-        }
-        else{
-            //Si le panier existe, check si produit déjà dans panier
-            if(Cart.checkIfProductExistInTheCart(userId, sku)){
-
-            }
-            else{
-
-            }
-        }*/
-    }
 
 
-    public boolean checkIfCartExists(String uid){
-        final boolean[] result = {false};
-        Query cartCheck = Utils.getDatabaseRoot().child("carts").equalTo(uid);
-        cartCheck.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                result[0] = true;
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                result[0] = false;
-            }
-        });
 
-        return result[0];
+    // Create the product in the cart
+    public static void createProductInCart(String uid, String sku){
+        //Product newProduct = new Product (sku);
+        DatabaseReference articlesNode = Utils.getDatabaseRoot().child("carts").child(uid).child("Articles").getRef();
+        //articlesNode.setValue(newProduct);
+        DatabaseReference productNode = Utils.getDatabaseRoot().child("carts").child(uid).child("Articles").child(sku).getRef();
+        //Map<String, Object> quantityValue = this.toMap();
+        //Map<String, Object> childUpdates = new HashMap<>();
+
+        //childUpdates.
+        //productNode.updateChildren()
+        //productNode.setValue()
+        //TODO : A FAIRE
     }
 
 }
