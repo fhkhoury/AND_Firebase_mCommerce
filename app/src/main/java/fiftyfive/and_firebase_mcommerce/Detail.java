@@ -27,6 +27,8 @@ import com.squareup.picasso.Picasso;
 import java.net.URL;
 
 import fiftyfive.and_firebase_mcommerce.models.Cart;
+import fiftyfive.and_firebase_mcommerce.models.Cart2;
+import fiftyfive.and_firebase_mcommerce.models.Cart3;
 import fiftyfive.and_firebase_mcommerce.models.Product;
 
 import static fiftyfive.and_firebase_mcommerce.R.id.parent;
@@ -92,15 +94,60 @@ public class Detail extends AppCompatActivity {
         int duration = Toast.LENGTH_LONG;
         final Toast toast = Toast.makeText(context, text, duration);
 
-
+        final Cart3 userCart[] = {new Cart3()};
 
         final Button addToCart = (Button) findViewById(R.id.addToCart);
         addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Check cart existe
-                Cart myCart = Cart.checkIfCartExists(userId);
-                System.out.println("Currrency = " + myCart.getCurrency());
+                DatabaseReference cartsNode = Utils.getDatabaseRoot().child("carts").child(userId);
+                ValueEventListener cartListerner = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            //if cart exist alors on le récupère
+                            System.out.println("Le panier existe");
+                            System.out.println(dataSnapshot.getValue());
+                            userCart[0] = dataSnapshot.getValue(Cart3.class);
+
+                            System.out.println(userCart[0].getProductList().toString());
+                            /*
+                            //check si produit déjoà dans panier
+                            if(!userCart[0].getProductList().containsValue(productSku)){
+                                //si produit n'existe pas, on ajoute
+                                userCart[0].getProductList().put(productSku, 1);
+
+                            }
+                            else{
+                                //Si produit existe, alors on incremente la quantité du prduit
+                                int newQuantity = (Integer)userCart[0].getProductList().get(productSku) + 1 ;
+                                //userCart[0].getProductList().replace(productSku, newQuantity);
+                                userCart[0].getProductList().remove(productSku);
+                                userCart[0].getProductList().put(productSku, newQuantity);
+                            }*/
+
+                        }
+                        else {
+                            //if cart doesn't existe, alors on le cree & on ajoute le produit
+
+                            //userCart[0].getProductList().add();
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                };
+                cartsNode.addValueEventListener(cartListerner);
+                //cartsNode.removeEventListener(cartListerner);
+
+                //Enfin on met à jour la base de donnée dans Firebase
+                //cartsNode.setValue(userId, userCart[0]);
+
+
                     //Si oui, check si produit déjà dans panier
                     /*if(myCart.checkIfProductExistInTheCart(userId, productSku)){
                         //Si oui incrémenter la quantité de 1
