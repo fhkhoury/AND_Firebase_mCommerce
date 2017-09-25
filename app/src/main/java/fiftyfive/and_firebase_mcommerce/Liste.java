@@ -70,8 +70,6 @@ public class Liste extends AppCompatActivity {
                     for(int i=0; i<productIdList.size(); i++){
                         if(productIdList.get(i).equals(postSnapshot.getKey())){
                             productList.add(product);
-                            System.out.println(postSnapshot.getKey());
-                            System.out.println(product.getName());
                         }
 
                     }
@@ -112,13 +110,12 @@ public class Liste extends AppCompatActivity {
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     public void onItemClick(AdapterView<?> listView, View itemView, int itemPosition, long itemId)
                     {
-                        Product selectedProduct = (Product) listView.getItemAtPosition(itemPosition);
+                        System.out.println(itemPosition);
+                        System.out.println(productIdList.get(itemPosition).toString());
 
+                        Product selectedProduct = (Product) listView.getItemAtPosition(itemPosition);
                         Intent i = new Intent(Liste.this, Detail.class);
-                        i.putExtra("SELECTED_PRODUCT_MINIATURE", selectedProduct.getProductMiniature());
-                        i.putExtra("SELECTED_PRODUCT_NAME", selectedProduct.getName());
-                        i.putExtra("SELECTED_PRODUCT_BRAND", selectedProduct.getBrand());
-                        i.putExtra("SELECTED_PRODUCT_PRICE", selectedProduct.getPrice());
+                        i.putExtra("SELECTED_PRODUCT_SKU", productIdList.get(itemPosition).toString());
                         startActivity(i);
                     }
                 });

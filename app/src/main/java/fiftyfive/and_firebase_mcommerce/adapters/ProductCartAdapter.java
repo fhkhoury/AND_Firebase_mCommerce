@@ -13,6 +13,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -84,13 +86,9 @@ public class ProductCartAdapter extends BaseAdapter {
         Map.Entry<String, Product> product = getItem(position);
 
         //il ne reste plus qu'à remplir notre vue
-        try{
-            URL thumb_u = new URL(product.getValue().getProductMiniature());
-            Drawable thumb_d = Drawable.createFromStream(thumb_u.openStream(), "src");
-            viewHolder.productMiniature.setImageDrawable(thumb_d);}
-        catch (Exception e) {
-            // handle it
-        }
+
+        Picasso.with(parent.getContext()).load(product.getValue().getProductMiniature()).into(viewHolder.productMiniature);
+
         viewHolder.productName.setText(product.getValue().getName());
         viewHolder.productBrand.setText("from " + product.getValue().getBrand());
         viewHolder.productPrice.setText(product.getValue().getPrice().toString() + " €");
