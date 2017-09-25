@@ -14,6 +14,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.analytics.FirebaseAnalytics.Event;
+import com.google.firebase.analytics.FirebaseAnalytics.Param;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -77,36 +79,33 @@ public class Liste extends AppCompatActivity {
 
                 //Send a view_item_list event with pomotional info only if user selected Jewelry category
 
-                    mFirebaseAnalytics.logEvent("PROMO", new Bundle());
-                System.out.println(FirebaseAnalytics.Event.VIEW_ITEM_LIST);
 
-                    Bundle bundle = new Bundle();
-                    bundle.putString("item_category", category);
-                    Bundle ecommerce = new Bundle();
-                    ecommerce.putString("currencyCode", "EUR");
+                ArrayList items = new ArrayList();
+                Bundle product = new Bundle();
 
-                    Bundle impressionList = new Bundle();
-                    Bundle impression = new Bundle();
+                for(int i=0; i<productList.size(); i++) {
+                    product.clear();
+                    product.putString(Param.ITEM_ID, String.valueOf(i+1));  // ITEM_ID or ITEM_NAME is required
+                    product.putString(Param.ITEM_NAME, productList.get(i).getName());
+                    product.putString(Param.ITEM_CATEGORY, productList.get(i).getCategory());
+                    product.putString(Param.ITEM_VARIANT,productList.get(i).getVariant());
+                    product.putString(Param.ITEM_BRAND, productList.get(i).getBrand());
+                    //product.putDouble(Param.PRICE, 29.99);
+                    product.putString(Param.CURRENCY, "EUR");
+                    product.putLong(Param.INDEX, i+1);     // Position of the item in the list
+                    items.add(product);
+                }
 
-                    for(int i=0; i<productList.size(); i++){
-                        impression.putString("id", String.valueOf(i+1));
-                        impression.putString("name", productList.get(i).getName());
-                        impression.putString("category", productList.get(i).getCategory());
-                        impression.putString("brand", productList.get(i).getBrand() );
-                        impression.putString("variant", productList.get(i).getVariant());
-                        //impression.putDouble("price", productList.get(i).getPrice());
-                        impression.putString("list", "bla");
-                        impression.putInt("position", i+1);
+                Bundle ecommerceBundle = new Bundle();
+                ecommerceBundle.putParcelableArrayList( "items", items );
 
+                // Log view_search_results or view_item_list event with ecommerce bundle
 
-                        impressionList.putBundle(String.valueOf(i+1), impression);
-                    }
-                    System.out.print(impressionList);
+                mFirebaseAnalytics.logEvent( Event.VIEW_ITEM_LIST, ecommerceBundle );
 
-                    ecommerce.putBundle("impressionList", impressionList);
-                    bundle.putBundle("ecommerce", ecommerce);
-                    System.out.print(bundle.keySet());
-                    mFirebaseAnalytics.logEvent("view_item_list", bundle);
+                mFirebaseAnalytics.logEvent("PROMO", new Bundle());
+
+                //Fill the list adapter
 
                 ProductListAdapter adapter = new ProductListAdapter(Liste.this, productList);
                 listView.setAdapter(adapter);

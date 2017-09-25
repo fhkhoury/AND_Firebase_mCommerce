@@ -36,7 +36,8 @@ dependencies {
     compile 'com.google.firebase:firebase-crash:11.0.4'
     //Firebase database
     compile 'com.google.firebase:firebase-database:11.0.4'
-
+    //Google Tag Manager
+    compile 'com.google.android.gms:play-services-tagmanager:11.0.4'
     testCompile 'junit:junit:4.12'
 }
 
