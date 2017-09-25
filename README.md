@@ -4,6 +4,13 @@ A sample m-commerce app to implement the Firebase Stack
 
 ## 0 - Project History
 
+- September 25th, 9:30am - Test GA EEC hit through GTMv5
+    - 	Write an event to track products list
+ 	- Adding GTM library to the app
+    - Adding GTM container to the project
+    - Configure GA property for the app
+    - It works :-)
+
 - Septemebr 13th, 3:15pm - Revamp liste & derail activities
     - Revamp list & detail activities to pass only 1 parameter (product sku) betweeen them
 
