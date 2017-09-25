@@ -13,6 +13,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.analytics.FirebaseAnalytics.Event;
+import com.google.firebase.analytics.FirebaseAnalytics.Param;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,6 +31,10 @@ import fiftyfive.and_firebase_mcommerce.adapters.ProductListAdapter;
 
 public class Liste extends AppCompatActivity {
 
+
+    private FirebaseAnalytics mFirebaseAnalytics;
+
+
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +47,14 @@ public class Liste extends AppCompatActivity {
         final ListView listView = (ListView) findViewById(R.id.listView);
 
         //Get value information about selected product in the list
-        String category = getIntent().getStringExtra("SELECTED_CATEGORY_ID");
+        final String category = getIntent().getStringExtra("SELECTED_CATEGORY_ID");
+
+        // Obtain the FirebaseAnalytics instance.
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
 
         final List<String> productIdList = getProductIdListFromCategory(category);
+
         final ArrayList<Product> productList = new ArrayList<>();
 
         final DatabaseReference categoryNode = Utils.getDatabaseRoot().child("products").getRef();
@@ -62,6 +74,37 @@ public class Liste extends AppCompatActivity {
 
                     }
                 }
+
+                //Send a view_item_list event with pomotional info only if user selected Jewelry category
+
+
+                ArrayList items = new ArrayList();
+                Bundle product = new Bundle();
+
+                for(int i=0; i<productList.size(); i++) {
+                    product.clear();
+                    product.putString(Param.ITEM_ID, String.valueOf(i+1));  // ITEM_ID or ITEM_NAME is required
+                    product.putString(Param.ITEM_NAME, productList.get(i).getName());
+                    product.putString(Param.ITEM_CATEGORY, productList.get(i).getCategory());
+                    product.putString(Param.ITEM_VARIANT,productList.get(i).getVariant());
+                    product.putString(Param.ITEM_BRAND, productList.get(i).getBrand());
+                    //product.putDouble(Param.PRICE, 29.99);
+                    product.putString(Param.CURRENCY, "EUR");
+                    product.putLong(Param.INDEX, i+1);     // Position of the item in the list
+                    items.add(product);
+                }
+
+                Bundle ecommerceBundle = new Bundle();
+                ecommerceBundle.putParcelableArrayList( "items", items );
+
+                // Log view_search_results or view_item_list event with ecommerce bundle
+
+                mFirebaseAnalytics.logEvent( Event.VIEW_ITEM_LIST, ecommerceBundle );
+
+                mFirebaseAnalytics.logEvent("PROMO", new Bundle());
+
+                //Fill the list adapter
+
                 ProductListAdapter adapter = new ProductListAdapter(Liste.this, productList);
                 listView.setAdapter(adapter);
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
