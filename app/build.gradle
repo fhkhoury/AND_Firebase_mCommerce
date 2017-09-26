@@ -25,7 +25,8 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.1'
+    //compile 'com.google.android.gms:play-services:11.4.0'
+    compile 'com.android.support:appcompat-v7:25.4.0'
     //Firebase Core Librairy
     compile 'com.google.firebase:firebase-core:11.0.4'
     //FirebaseUI Auth librairy
@@ -38,6 +39,9 @@ dependencies {
     compile 'com.google.firebase:firebase-database:11.0.4'
     //Google Tag Manager
     compile 'com.google.android.gms:play-services-tagmanager:11.0.4'
+    // FIrebase Push Notifications (FCM)
+    compile 'com.google.firebase:firebase-messaging:11.0.4'
+    compile 'com.firebase:firebase-jobdispatcher:0.6.0'
     // A library to manage Images/Pics
     compile 'com.squareup.picasso:picasso:2.5.2'
     
