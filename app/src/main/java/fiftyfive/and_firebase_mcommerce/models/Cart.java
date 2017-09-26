@@ -116,7 +116,7 @@ public class Cart {
 
     // Create the product in the cart
     public static void createProductInCart(String uid, String sku){
-        Product newProduct = new Product (sku);
+        Product newProduct = new Product ();
         DatabaseReference articlesNode = Utils.getDatabaseRoot().child("carts").child(uid).child("Articles").getRef();
         articlesNode.setValue(newProduct);
         DatabaseReference productNode = Utils.getDatabaseRoot().child("carts").child(uid).child("Articles").child(sku).getRef();
