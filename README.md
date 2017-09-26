@@ -4,6 +4,15 @@ A sample m-commerce app to implement the Firebase Stack
 
 ## 0 - Project History
 
+- September 26th, 6pm - Setup Firebase Push Notif
+    - Add the Firebase Push notif dependency
+    - Configure the Firebase Push Notif tool
+    - Update GMS to v3.1.1
+    - Create the dedicated classes to get token, send and recieve notifications
+    - Send a notif when the appp is in background ==> It works!
+    - ToDo : 
+         - Implement the code to recieve notifcations when the app is not launched or in foreground 
+
 - September 25th, 9:30am - Test GA EEC hit through GTMv5
     - 	Write an event to track products list
  	- Adding GTM library to the app
