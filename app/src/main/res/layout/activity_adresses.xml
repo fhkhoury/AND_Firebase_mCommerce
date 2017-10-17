@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="fiftyfive.and_firebase_mcommerce.Adresses"
+    tools:layout_editor_absoluteY="25dp"
+    tools:layout_editor_absoluteX="0dp">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="245dp"
+        android:layout_height="66dp"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="Mes adresses"
+        tools:layout_editor_absoluteY="5dp"
+        tools:layout_editor_absoluteX="4dp" />
+
+    <ImageView
+        android:id="@+id/userPicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_user_64"
+        android:layout_below="@+id/my_toolbar"
+        android:layout_alignParentStart="true"
+        tools:layout_editor_absoluteY="83dp"
+        tools:layout_editor_absoluteX="16dp" />
+
+
+    <TextView
+        android:id="@+id/userName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My name"
+        android:textSize="18sp"
+        android:layout_alignTop="@+id/userPicture"
+        android:layout_alignStart="@+id/disconnect"
+        tools:layout_editor_absoluteY="329dp"
+        tools:layout_editor_absoluteX="32dp" />
+
+
+    <TextView
+        android:id="@+id/userEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My email"
+        android:textSize="18sp"
+        android:layout_below="@+id/userPicture"
+        android:layout_alignStart="@+id/userAdress"
+        tools:layout_editor_absoluteY="272dp"
+        tools:layout_editor_absoluteX="32dp" />
+
+    <TextView
+        android:id="@+id/userAdress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My Adress"
+        android:textSize="18sp"
+        android:layout_alignBottom="@+id/userPicture"
+        android:layout_alignStart="@+id/userName"
+        tools:layout_editor_absoluteY="212dp"
+        tools:layout_editor_absoluteX="32dp" />
+
+    <Button
+        android:text="Shipping methode"
+        android:id="@+id/shipping"
+        android:layout_width="201dp"
+        android:layout_height="80dp"
+        tools:layout_editor_absoluteX="80dp"
+        tools:layout_editor_absoluteY="471dp" />
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline"
+        app:layout_constraintGuide_begin="20dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="20dp" />
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline2"
+        app:layout_constraintGuide_begin="20dp"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteY="20dp"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline3"
+        app:layout_constraintGuide_begin="20dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="20dp" />
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline4"
+        app:layout_constraintGuide_begin="20dp"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteY="20dp"
+        tools:layout_editor_absoluteX="0dp" />
+
+
+</android.support.constraint.ConstraintLayout>
