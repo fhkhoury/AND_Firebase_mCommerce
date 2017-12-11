@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -29,12 +30,17 @@ public class SplashScreen extends AppCompatActivity {
     final String PREFS_NAME = "MyPrefsFile";
 
     private FirebaseAuth mAuth;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-
+        //initialisation firebaseAnalytics
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        Bundle bundle=new Bundle();
+        bundle.putString("screenName","SplashScreen");
+        mFirebaseAnalytics.logEvent("screenView",bundle);
         //Database
         Utils.initDatabase();
         DatabaseReference rootDB = Utils.getDatabaseRoot();

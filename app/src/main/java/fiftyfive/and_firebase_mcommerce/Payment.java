@@ -12,6 +12,8 @@ public class Payment extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
+
+
         final Button connect = (Button) findViewById(R.id.nextConfirmation);
         connect.setOnClickListener(new View.OnClickListener() {
             @Override
