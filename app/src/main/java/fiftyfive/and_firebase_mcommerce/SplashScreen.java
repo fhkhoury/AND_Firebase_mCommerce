@@ -36,12 +36,14 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
         //initialisation firebaseAnalytics
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         Bundle bundle=new Bundle();
         bundle.putString("screenName","SplashScreen");
         mFirebaseAnalytics.logEvent("screenView",bundle);
         //Database
+
         Utils.initDatabase();
         DatabaseReference rootDB = Utils.getDatabaseRoot();
 
