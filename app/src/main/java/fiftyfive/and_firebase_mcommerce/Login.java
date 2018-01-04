@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
  * Created by Francois on 10/08/2017.
  */
 
-public class Login extends AppCompatActivity {
+public class Login extends AppCompatActivity{
 
     private EditText inputEmail, inputPassword;
     private FirebaseAuth auth;
