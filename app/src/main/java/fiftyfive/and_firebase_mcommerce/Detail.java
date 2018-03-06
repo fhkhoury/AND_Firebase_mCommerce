@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.net.URL;
+import java.util.ArrayList;
 
 import fiftyfive.and_firebase_mcommerce.models.Cart;
 import fiftyfive.and_firebase_mcommerce.models.Product;
@@ -42,6 +44,36 @@ public class Detail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_detail);
+
+        FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        final FirebaseAnalytics mFirebaseAnalytics2 = FirebaseAnalytics.getInstance(this);
+
+        Bundle product1 = new Bundle();
+        product1.putString(FirebaseAnalytics.Param.ITEM_ID, "ProductId 123");
+        product1.putString(FirebaseAnalytics.Param.ITEM_NAME, "ProductName 123");
+        product1.putString(FirebaseAnalytics.Param.ITEM_CATEGORY, "ProductCategory 123");
+        product1.putString(FirebaseAnalytics.Param.ITEM_VARIANT, "ProductVariant 123");
+        product1.putString(FirebaseAnalytics.Param.ITEM_BRAND, "ProductBrand 123");
+        product1.putDouble(FirebaseAnalytics.Param.PRICE, 12.34 );
+        product1.putString(FirebaseAnalytics.Param.CURRENCY, "EUR");
+
+        ArrayList items = new ArrayList();
+        items.add(product1);
+
+        Bundle ecommerceBundle = new Bundle();
+        ecommerceBundle.putParcelableArrayList( "items", items );
+        ecommerceBundle.putString("screenName","Detail");
+        ecommerceBundle.putString("userId", "11111111111");
+        ecommerceBundle.putString("pageTopCategory", "Detail");
+        ecommerceBundle.putString("pageCategory", "");
+        ecommerceBundle.putString("pageSubCategory", "");
+        ecommerceBundle.putString("pageType", "Product");
+        ecommerceBundle.putString("loginStatus", "Not logged");
+        ecommerceBundle.putString("previousScreen", "Liste");
+        ecommerceBundle.putString(FirebaseAnalytics.Param.ITEM_LIST,"Product list");
+
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, ecommerceBundle);
+        mFirebaseAnalytics.setCurrentScreen(this, "Detail", null);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -96,6 +128,29 @@ public class Detail extends AppCompatActivity {
         addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Bundle product1 = new Bundle();
+                product1.putString(FirebaseAnalytics.Param.ITEM_ID, "ProductId 123");
+                product1.putString(FirebaseAnalytics.Param.ITEM_NAME, "ProductName 123");
+                product1.putString(FirebaseAnalytics.Param.ITEM_CATEGORY, "ProductCategory 123");
+                product1.putString(FirebaseAnalytics.Param.ITEM_VARIANT, "ProductVariant 123");
+                product1.putString(FirebaseAnalytics.Param.ITEM_BRAND, "ProductBrand 123");
+                product1.putDouble(FirebaseAnalytics.Param.PRICE, 12.34 );
+                product1.putString(FirebaseAnalytics.Param.CURRENCY, "EUR");
+                product1.putLong(FirebaseAnalytics.Param.QUANTITY, 1);
+
+                ArrayList items = new ArrayList();
+                items.add(product1);
+
+                Bundle ecommerceBundle = new Bundle();
+                ecommerceBundle.putParcelableArrayList( "items", items );
+                ecommerceBundle.putString("screenName","Detail");
+                ecommerceBundle.putString("eventCategory", "Enhanced Ecommerce");
+                ecommerceBundle.putString("eventAction", "ADD_TO_CART");
+                ecommerceBundle.putString("eventLabel", "More information in ecommerce reports");
+
+                mFirebaseAnalytics2.logEvent( FirebaseAnalytics.Event.ADD_TO_CART, ecommerceBundle );
+
                 Cart.addToCart(userId, "786936215595", 300.00);
                 //addToCart("786936215595", userId);
                 //Check cart existe

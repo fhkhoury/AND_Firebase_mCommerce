@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -31,6 +32,21 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        final FirebaseAnalytics mFirebaseAnalytics2 = FirebaseAnalytics.getInstance(this);
+        Bundle bundle=new Bundle();
+        bundle.putString("screenName","Login");
+        bundle.putString("userId", "1111111111");
+        bundle.putString("pageTopCategory", "Profile");
+        bundle.putString("pageCategory", "Login");
+        bundle.putString("pageSubCategory", "");
+        bundle.putString("pageType", "User");
+        bundle.putString("loginStatus", "Not logged");
+        bundle.putString("previousScreen", "Homepage");
+
+        mFirebaseAnalytics.logEvent("screenView",bundle);
+        mFirebaseAnalytics.setCurrentScreen(this, "Login", null);
 
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
@@ -102,6 +118,12 @@ public class Login extends AppCompatActivity {
                                 } else {
                                     //There is ok
                                     //Go to Profile
+                                    Bundle params = new Bundle();
+                                    params.putString("screenName", "Login");
+                                    params.putString("eventCategory", "User");
+                                    params.putString("eventAction", "Login");
+                                    params.putString("eventLabel", "");
+                                    mFirebaseAnalytics2.logEvent(FirebaseAnalytics.Event.LOGIN, params );
                                     Intent intent = new Intent(Login.this, Profile.class);
                                     startActivity(intent);
                                     finish();

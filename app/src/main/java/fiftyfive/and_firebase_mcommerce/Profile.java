@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -28,6 +29,21 @@ public class Profile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        final FirebaseAnalytics mFirebaseAnalytics2 = FirebaseAnalytics.getInstance(this);
+        Bundle bundle=new Bundle();
+        bundle.putString("screenName","Profile");
+        bundle.putString("userId", "1111111111");
+        bundle.putString("pageTopCategory", "Profile");
+        bundle.putString("pageCategory", "");
+        bundle.putString("pageSubCategory", "");
+        bundle.putString("pageType", "User");
+        bundle.putString("loginStatus", "Logged");
+        bundle.putString("previousScreen", "Login");
+
+        mFirebaseAnalytics.logEvent("screenView",bundle);
+        mFirebaseAnalytics.setCurrentScreen(this, "Profile", null);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -71,6 +87,12 @@ public class Profile extends AppCompatActivity {
                 //Déconnecter l'utilisateur et revenir à la HP après
                 if (view.getId() == R.id.disconnect) {
                     auth.signOut();
+                    Bundle params = new Bundle();
+                    params.putString("screenName", "Profile");
+                    params.putString("eventCategory", "User");
+                    params.putString("eventAction", "Logout");
+                    params.putString("eventLabel", "");
+                    mFirebaseAnalytics2.logEvent("LOGOUT", params );
                     startActivity(new Intent(Profile.this, HomePage.class));
                     finish();
                 }

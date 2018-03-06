@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 
 /**
@@ -24,11 +25,27 @@ public class ResetPassword extends AppCompatActivity {
     private Button btnReset, btnBack;
     private FirebaseAuth auth;
     private ProgressBar progressBar;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acitivity_reset_password);
+
+        FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        final FirebaseAnalytics mFirebaseAnalytics2 = FirebaseAnalytics.getInstance(this);
+        Bundle bundle=new Bundle();
+        bundle.putString("screenName","ResetPassword");
+        bundle.putString("userId", "1111111111");
+        bundle.putString("pageTopCategory", "Profile");
+        bundle.putString("pageCategory", "ResetPassword");
+        bundle.putString("pageSubCategory", "");
+        bundle.putString("pageType", "User");
+        bundle.putString("loginStatus", "Not logged");
+        bundle.putString("previousScreen", "Login");
+
+        mFirebaseAnalytics.logEvent("screenView",bundle);
+        mFirebaseAnalytics.setCurrentScreen(this, "ResetPassword", null);
 
         inputEmail = (EditText) findViewById(R.id.email);
         btnReset = (Button) findViewById(R.id.btn_reset_password);
@@ -61,6 +78,14 @@ public class ResetPassword extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
+
+                                    Bundle params = new Bundle();
+                                    params.putString("screenName", "ResetPassword");
+                                    params.putString("eventCategory", "User");
+                                    params.putString("eventAction", "Reset");
+                                    params.putString("eventLabel", "");
+                                    mFirebaseAnalytics2.logEvent("RESET_PASSWORD", params );
+
                                     Toast.makeText(ResetPassword.this, "We have sent you instructions to reset your password!", Toast.LENGTH_SHORT).show();
                                 } else {
                                     Toast.makeText(ResetPassword.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();

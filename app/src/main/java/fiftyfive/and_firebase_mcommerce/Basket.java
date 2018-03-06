@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -36,6 +37,38 @@ public class Basket extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_basket);
 
+        final FirebaseAnalytics mFirebaseAnalytics2 = FirebaseAnalytics.getInstance(this);
+
+        FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+        Bundle product1 = new Bundle();
+        product1.putString(FirebaseAnalytics.Param.ITEM_ID, "ProductId 123");
+        product1.putString(FirebaseAnalytics.Param.ITEM_NAME, "ProductName 123");
+        product1.putString(FirebaseAnalytics.Param.ITEM_CATEGORY, "ProductCategory 123");
+        product1.putString(FirebaseAnalytics.Param.ITEM_VARIANT, "ProductVariant 123");
+        product1.putString(FirebaseAnalytics.Param.ITEM_BRAND, "ProductBrand 123");
+        product1.putDouble(FirebaseAnalytics.Param.PRICE, 12.34 );
+        product1.putString(FirebaseAnalytics.Param.CURRENCY, "EUR");
+        product1.putLong(FirebaseAnalytics.Param.QUANTITY, 1);
+
+        ArrayList items = new ArrayList();
+        items.add(product1);
+
+        Bundle ecommerceBundle = new Bundle();
+        ecommerceBundle.putParcelableArrayList( "items", items );
+        ecommerceBundle.putLong( FirebaseAnalytics.Param.CHECKOUT_STEP, 1 );
+        ecommerceBundle.putString( FirebaseAnalytics.Param.CHECKOUT_OPTION, "" );
+        ecommerceBundle.putString("screenName","Basket");
+        ecommerceBundle.putString("userId", "1111111111");
+        ecommerceBundle.putString("pageTopCategory", "Checkout");
+        ecommerceBundle.putString("pageCategory", "Basket");
+        ecommerceBundle.putString("pageSubCategory", "");
+        ecommerceBundle.putString("pageType", "Checkout");
+        ecommerceBundle.putString("loginStatus", "Logged");
+        ecommerceBundle.putString("previousScreen", "Login");
+
+        mFirebaseAnalytics.logEvent( FirebaseAnalytics.Event.BEGIN_CHECKOUT, ecommerceBundle );
+        mFirebaseAnalytics.setCurrentScreen(this, "Adresses", null);
 
         //get firebase auth instance
         auth = FirebaseAuth.getInstance();
@@ -50,6 +83,36 @@ public class Basket extends AppCompatActivity {
 
         ProductCartAdapter adapter = new ProductCartAdapter(cartList);
         cartListView.setAdapter(adapter);
+
+        final Button removeFromCart = (Button) findViewById(R.id.removeFromCart);
+        removeFromCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Bundle product1 = new Bundle();
+                product1.putString(FirebaseAnalytics.Param.ITEM_ID, "ProductId 123");
+                product1.putString(FirebaseAnalytics.Param.ITEM_NAME, "ProductName 123");
+                product1.putString(FirebaseAnalytics.Param.ITEM_CATEGORY, "ProductCategory 123");
+                product1.putString(FirebaseAnalytics.Param.ITEM_VARIANT, "ProductVariant 123");
+                product1.putString(FirebaseAnalytics.Param.ITEM_BRAND, "ProductBrand 123");
+                product1.putDouble(FirebaseAnalytics.Param.PRICE, 12.34 );
+                product1.putString(FirebaseAnalytics.Param.CURRENCY, "EUR");
+                product1.putLong(FirebaseAnalytics.Param.QUANTITY, 1);
+
+                ArrayList items = new ArrayList();
+                items.add(product1);
+
+                Bundle ecommerceBundle = new Bundle();
+                ecommerceBundle.putParcelableArrayList( "items", items );
+                ecommerceBundle.putString("screenName","Detail");
+                ecommerceBundle.putString("eventCategory", "Enhanced Ecommerce");
+                ecommerceBundle.putString("eventAction", "REMOVE_FROM_CART");
+                ecommerceBundle.putString("eventLabel", "More information in ecommerce reports");
+
+                mFirebaseAnalytics2.logEvent( FirebaseAnalytics.Event.REMOVE_FROM_CART, ecommerceBundle );
+            }
+        });
+
         final Button connect = (Button) findViewById(R.id.checkoout);
         connect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +132,7 @@ public class Basket extends AppCompatActivity {
                     }
                 }
             }
-                });
+        });
     }
 
     @Override
