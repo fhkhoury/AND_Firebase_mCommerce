@@ -10,6 +10,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 /**
  * Created by Francois on 03/08/2017.
  */
@@ -23,6 +25,20 @@ public class Legal extends AppCompatActivity{
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_legal);
+
+        FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        Bundle bundle=new Bundle();
+        bundle.putString("screenName","Legal");
+        bundle.putString("userId", "1111111111");
+        bundle.putString("pageTopCategory", "Legal");
+        bundle.putString("pageCategory", "");
+        bundle.putString("pageSubCategory", "");
+        bundle.putString("pageType", "User");
+        bundle.putString("loginStatus", "Not logged");
+        bundle.putString("previousScreen", "HomePage");
+
+        mFirebaseAnalytics.logEvent("screenView", bundle);
+        mFirebaseAnalytics.setCurrentScreen(this, "Legal", null);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);

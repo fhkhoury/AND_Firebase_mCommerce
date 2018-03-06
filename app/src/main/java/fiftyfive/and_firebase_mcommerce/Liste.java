@@ -51,6 +51,8 @@ public class Liste extends AppCompatActivity {
 
         // Obtain the FirebaseAnalytics instance.
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        final FirebaseAnalytics mFirebaseAnalytics2 = FirebaseAnalytics.getInstance(this);
+        mFirebaseAnalytics.setCurrentScreen(this, "Liste", null);
 
 
         final List<String> productIdList = getProductIdListFromCategory(category);
@@ -83,25 +85,25 @@ public class Liste extends AppCompatActivity {
 
                 for(int i=0; i<productList.size(); i++) {
                     product.clear();
-                    product.putString(Param.ITEM_ID, String.valueOf(i+1));  // ITEM_ID or ITEM_NAME is required
-                    product.putString(Param.ITEM_NAME, productList.get(i).getName());
-                    product.putString(Param.ITEM_CATEGORY, productList.get(i).getCategory());
-                    product.putString(Param.ITEM_VARIANT,productList.get(i).getVariant());
-                    product.putString(Param.ITEM_BRAND, productList.get(i).getBrand());
+                    product.putString(FirebaseAnalytics.Param.ITEM_ID, String.valueOf(i+1));  // ITEM_ID or ITEM_NAME is required
+                    product.putString(FirebaseAnalytics.Param.ITEM_NAME, productList.get(i).getName());
+                    product.putString(FirebaseAnalytics.Param.ITEM_CATEGORY, productList.get(i).getCategory());
+                    product.putString(FirebaseAnalytics.Param.ITEM_VARIANT,productList.get(i).getVariant());
+                    product.putString(FirebaseAnalytics.Param.ITEM_BRAND, productList.get(i).getBrand());
                     //product.putDouble(Param.PRICE, 29.99);
-                    product.putString(Param.CURRENCY, "EUR");
-                    product.putLong(Param.INDEX, i+1);     // Position of the item in the list
+                    product.putString(FirebaseAnalytics.Param.CURRENCY, "EUR");
+                    product.putLong(FirebaseAnalytics.Param.INDEX, i+1);     // Position of the item in the list
                     items.add(product);
                 }
 
                 Bundle ecommerceBundle = new Bundle();
-                ecommerceBundle.putParcelableArrayList( "items", items );
+                ecommerceBundle.putParcelableArrayList( "items", items);
+                ecommerceBundle.putString("screenName", "Liste");
+                ecommerceBundle.putString(FirebaseAnalytics.Param.ITEM_LIST, "Product list");
 
                 // Log view_search_results or view_item_list event with ecommerce bundle
-
-                mFirebaseAnalytics.logEvent( Event.VIEW_ITEM_LIST, ecommerceBundle );
-
-                mFirebaseAnalytics.logEvent("PROMO", new Bundle());
+                mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM_LIST, ecommerceBundle );
+                mFirebaseAnalytics.setCurrentScreen(Liste.this, "Liste", null);
 
                 //Fill the list adapter
 
@@ -110,6 +112,29 @@ public class Liste extends AppCompatActivity {
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     public void onItemClick(AdapterView<?> listView, View itemView, int itemPosition, long itemId)
                     {
+
+                        Bundle product1 = new Bundle();
+                        product1.putString(FirebaseAnalytics.Param.ITEM_ID, "productId 123");
+                        product1.putString(FirebaseAnalytics.Param.ITEM_NAME, "productName 123");
+                        product1.putString(FirebaseAnalytics.Param.ITEM_CATEGORY, "productCategory 123");
+                        product1.putString(FirebaseAnalytics.Param.ITEM_VARIANT, "productVariant 123");
+                        product1.putString(FirebaseAnalytics.Param.ITEM_BRAND, "productBrand 123" );
+                        product1.putDouble(FirebaseAnalytics.Param.PRICE, 12.34);
+                        product1.putString(FirebaseAnalytics.Param.CURRENCY, "EUR" );
+                        product1.putLong(FirebaseAnalytics.Param.INDEX, 1 );
+
+                        ArrayList items = new ArrayList();
+                        items.add(product1);
+
+                        Bundle ecommerceBundle = new Bundle();
+                        ecommerceBundle.putParcelableArrayList( "items", items );
+                        ecommerceBundle.putString("screenName", "Liste");
+                        ecommerceBundle.putString("eventCategory", "Product");
+                        ecommerceBundle.putString("eventAction", "Click");
+                        ecommerceBundle.putString("eventLabel", "");
+                        ecommerceBundle.putString(FirebaseAnalytics.Param.ITEM_LIST, "Product list"); // Optional list name
+
+                        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, ecommerceBundle );
                         System.out.println(itemPosition);
                         System.out.println(productIdList.get(itemPosition).toString());
 

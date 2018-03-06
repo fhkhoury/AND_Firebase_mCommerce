@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AND_Firebase_mCommerce.iml" filepath="$PROJECT_DIR$/AND_Firebase_mCommerce.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TestFirebaseGTM.iml" filepath="$PROJECT_DIR$/TestFirebaseGTM.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/firebase.iml" filepath="$PROJECT_DIR$/firebase.iml" />
-      <module fileurl="file://$PROJECT_DIR$/firebasefkh.iml" filepath="$PROJECT_DIR$/firebasefkh.iml" />
     </modules>
   </component>
 </project>

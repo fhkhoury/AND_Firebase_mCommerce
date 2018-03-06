@@ -41,7 +41,15 @@ public class SplashScreen extends AppCompatActivity {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         Bundle bundle=new Bundle();
         bundle.putString("screenName","SplashScreen");
-        mFirebaseAnalytics.logEvent("screenView",bundle);
+        bundle.putString("clientId", "0123456789.0123456789");
+        bundle.putString("deviceId", "444333222111");
+        bundle.putString("environment", "Production");
+        bundle.putString("campaignSource", "Source_de_la_campagne");
+        bundle.putString("campaignMedium", "Media_de_la_campagne");
+        bundle.putString("campaignName", "Nom_de_la_campagne");
+
+        mFirebaseAnalytics.logEvent("applicationStart",bundle);
+        mFirebaseAnalytics.setCurrentScreen(this, "SplashScreen", null);
         //Database
 
         Utils.initDatabase();

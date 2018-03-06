@@ -58,4 +58,13 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true" />
 
+    <Button
+        android:id="@+id/removeFromCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/checkoout"
+        android:layout_marginStart="17dp"
+        android:text="Remove From Cart" />
+
 </RelativeLayout>
