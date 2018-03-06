@@ -4,9 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,10 +29,17 @@ import static fiftyfive.and_firebase_mcommerce.R.id.listView;
 
 public class Basket extends AppCompatActivity {
 
+    private FirebaseAuth auth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_basket);
+
+
+        //get firebase auth instance
+        auth = FirebaseAuth.getInstance();
+        final FirebaseUser user = auth.getCurrentUser();
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -37,6 +50,26 @@ public class Basket extends AppCompatActivity {
 
         ProductCartAdapter adapter = new ProductCartAdapter(cartList);
         cartListView.setAdapter(adapter);
+        final Button connect = (Button) findViewById(R.id.checkoout);
+        connect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(user==null){
+                    startActivity(new Intent(Basket.this, Login.class));
+                    finish();
+                }
+                else{
+                    if(user.isAnonymous()){
+                        startActivity(new Intent(Basket.this, Signup.class));
+                        finish();
+                    }
+                    else{
+                        startActivity(new Intent(Basket.this, Adresses.class));
+                        finish();
+                    }
+                }
+            }
+                });
     }
 
     @Override

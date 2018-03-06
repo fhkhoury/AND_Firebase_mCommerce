@@ -11,56 +11,63 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
         <!-- [START fcm_default_icon] -->
-        <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
-             See README(https://goo.gl/l4GJaQ) for more. -->
+        <!--
+             Set custom default icon. This is used when no icon is set for incoming notification messages.
+             See README(https://goo.gl/l4GJaQ) for more.
+        -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_stat_ic_notification" />
-        <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
-             notification message. See README(https://goo.gl/6BKBk7) for more. -->
+        <!--
+             Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more.
+        -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
         <!-- [END fcm_default_icon] -->
-        <activity android:icon="@drawable/logo_55" android:name="fiftyfive.and_firebase_mcommerce.SplashScreen">
+        <activity
+            android:name=".SplashScreen"
+            android:icon="@drawable/logo_55">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="fiftyfive.and_firebase_mcommerce.HomePage" />
-        <activity android:name="fiftyfive.and_firebase_mcommerce.Informations" />
-        <activity android:name="fiftyfive.and_firebase_mcommerce.Liste" />
-        <activity android:name="fiftyfive.and_firebase_mcommerce.Detail" />
-        <activity android:name="fiftyfive.and_firebase_mcommerce.Legal" />
-        <activity android:name="fiftyfive.and_firebase_mcommerce.Promo" />
-        <activity android:name="fiftyfive.and_firebase_mcommerce.Basket" />
-        <activity android:name="fiftyfive.and_firebase_mcommerce.Profile" />
-        <activity android:name="fiftyfive.and_firebase_mcommerce.Login" />
-        <activity android:name="fiftyfive.and_firebase_mcommerce.Signup" />
-        <activity android:name="fiftyfive.and_firebase_mcommerce.ResetPassword" />
-
+        <activity android:name=".HomePage" />
+        <activity android:name=".Informations" />
+        <activity android:name=".Liste" />
+        <activity android:name=".Detail" />
+        <activity android:name=".Legal" />
+        <activity android:name=".Promo" />
+        <activity android:name=".Basket" />
+        <activity android:name=".Profile" />
+        <activity android:name=".Login" />
+        <activity android:name=".Signup" />
+        <activity android:name=".ResetPassword" />
+        <activity android:name=".Adresses" />
         <!-- [START firebase_service] -->
-        <service
-            android:name=".MyFirebaseMessagingService">
+        <service android:name=".MyFirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
         <!-- [END firebase_service] -->
 
+
         <!-- [START firebase_iid_service] -->
-        <service
-            android:name=".MyFirebaseInstanceIDService">
+        <service android:name=".MyFirebaseInstanceIDService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
         <!-- [END firebase_iid_service] -->
-
+        <activity android:name=".Shipping" />
+        <activity android:name=".Payment" />
+        <activity android:name=".Confirmation"></activity>
     </application>
-
 
 </manifest>
