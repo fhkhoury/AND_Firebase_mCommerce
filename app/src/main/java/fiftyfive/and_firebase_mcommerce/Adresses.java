@@ -24,7 +24,6 @@ public class Adresses extends AppCompatActivity {
         bundle.putString("pageType", "User");
         bundle.putString("loginStatus", "Logged");
         bundle.putString("previousScreen", "Login");
-
         mFirebaseAnalytics.logEvent("screenView", bundle);
         mFirebaseAnalytics.setCurrentScreen(this, "Adresses", null);
 
@@ -34,8 +33,8 @@ public class Adresses extends AppCompatActivity {
             public void onClick(View view) {
                     startActivity(new Intent(Adresses.this, Shipping.class));
                     finish();
-
                 }
             });
     }
 }
+

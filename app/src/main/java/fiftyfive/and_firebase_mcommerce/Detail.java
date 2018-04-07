@@ -70,7 +70,6 @@ public class Detail extends AppCompatActivity {
         ecommerceBundle.putString("pageType", "Product");
         ecommerceBundle.putString("loginStatus", "Not logged");
         ecommerceBundle.putString("previousScreen", "Liste");
-        ecommerceBundle.putString(FirebaseAnalytics.Param.ITEM_LIST,"Product list");
 
         mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, ecommerceBundle);
         mFirebaseAnalytics.setCurrentScreen(this, "Detail", null);

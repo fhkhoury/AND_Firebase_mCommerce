@@ -35,7 +35,7 @@ public class Confirmation extends AppCompatActivity {
 
         Bundle ecommerceBundle = new Bundle();
         ecommerceBundle.putParcelableArrayList( "items", items );
-        ecommerceBundle.putString( FirebaseAnalytics.Param.TRANSACTION_ID, "1A2B3C4D" );
+        ecommerceBundle.putString( FirebaseAnalytics.Param.TRANSACTION_ID, "555666" );
         ecommerceBundle.putString( FirebaseAnalytics.Param.AFFILIATION, "Acme Clothing" );
         ecommerceBundle.putDouble( FirebaseAnalytics.Param.VALUE, 20.49 );
         ecommerceBundle.putDouble( FirebaseAnalytics.Param.TAX, 3.65 );
@@ -61,7 +61,7 @@ public class Confirmation extends AppCompatActivity {
 
                 Bundle ecommerceBundle = new Bundle();
                 ecommerceBundle.putString("screenName", "Confirmation");
-                ecommerceBundle.putString( FirebaseAnalytics.Param.TRANSACTION_ID, "1A2B3C4D" );
+                ecommerceBundle.putString( FirebaseAnalytics.Param.TRANSACTION_ID, "333444" );
                 ecommerceBundle.putDouble( FirebaseAnalytics.Param.VALUE, 20.49 );
 
                 // (OPTIONAL) For partial refunds, define the item IDs and quantities of products being refunded
